@@ -14,7 +14,7 @@ const string I_spike_file = "I_spike_times.txt";
 
 class EInet{
     public:
-    float V_init=-60.0;
+    float V_init=-70.0;
     float input=12.0;
     LifParams lifpara={-60.0,-60.0,-50.0,20.0,5.0,1.0};
     //revers,rest,thresold,tau,ref,R
@@ -179,28 +179,40 @@ void* updateNeurons(void* arg) {
     pthread_exit(NULL);
 }
 
-int main(){
+int main() {
     srand(time(0));
-    float stimuTime=500.0;
+    float stimuTime = 500.0;
     auto start = high_resolution_clock::now();
     EInet net;
     auto end = high_resolution_clock::now();
     auto duration = duration_cast<milliseconds>(end - start);
-    cout << "initTime: " << duration.count() << " ms" << endl;
+    cout << "Initialization time: " << duration.count() << " ms" << endl;
 
+    pthread_t threadE, threadI;
+    ThreadData dataE, dataI;
 
-    auto start1 = high_resolution_clock::now();
-    int step=stimuTime/0.1;
-    float currentTime=0.0;
-    for (int i = 0; i < step; i++)
-    {
-        net.update(currentTime);
-        currentTime+=0.1;
+    dataE.neurons = &net.groupE;
+    dataE.spikes = &net.spikesE;
+    dataE.stimuTime = stimuTime;
+
+    dataI.neurons = &net.groupI;
+    dataI.spikes = &net.spikesI;
+    dataI.stimuTime = stimuTime;
+
+    if (pthread_create(&threadE, NULL, updateNeurons, &dataE)) {
+        cerr << "Error: Unable to create thread for groupE" << endl;
+        return -1;
     }
-    auto end1 = high_resolution_clock::now();
-    auto duration1 = duration_cast<milliseconds>(end1 - start1);
-    cout << "stimuTime: " << duration1.count() << " ms" << endl;
+
+    if (pthread_create(&threadI, NULL, updateNeurons, &dataI)) {
+        cerr << "Error: Unable to create thread for groupI" << endl;
+        return -1;
+    }
+
+    pthread_join(threadE, NULL);
+    pthread_join(threadI, NULL);
+
     net.saveSpikeTimes();
+
+    return 0;
 }
-
-
