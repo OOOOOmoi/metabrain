@@ -188,10 +188,11 @@ int main() {
     pthread_t threadE, threadI;
     pthread_t syn1,syn2,syn3,syn4;
     ThreadData dataE, dataI;
+    ThreadDataSynapse dataE2E,dataE2I,dataI2I,dataI2E;
 
     dataE.neurons = &net.groupE;
-
     dataI.neurons = &net.groupI;
+    dateE2E.syn
 
     for (int i = 0; i < step; i++)
     {
