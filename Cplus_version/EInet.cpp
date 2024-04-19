@@ -106,6 +106,8 @@ class EInet{
         for(auto &syn : I2E){
             syn.update(dt);
         }
+
+        
         for(size_t i = 0; i < groupE.size(); ++i){
             groupE[i].receiveCurrent(input);
             groupE[i].update(dt);

@@ -149,34 +149,31 @@ class EInet{
 
 struct ThreadData {
     vector<LIFNeuron>* neurons;
-    vector<vector<float>>* spikes;
-    float stimuTime;
 };
 
 void* updateNeurons(void* arg) {
     ThreadData* data = reinterpret_cast<ThreadData*>(arg);
     vector<LIFNeuron>* neurons = data->neurons;
-    vector<vector<float>>* spikes = data->spikes;
-    float stimuTime = data->stimuTime;
 
-    auto start = high_resolution_clock::now();
-    float dt = 0.1;
-    int step = stimuTime / dt;
-    for (int i = 0; i < step; ++i) {
-        float currentTime = i * dt;
-        for (size_t j = 0; j < neurons->size(); ++j) {
-            (*neurons)[j].receiveCurrent(12.0);
-            (*neurons)[j].update(dt);
-            if ((*neurons)[j].hasFired()) {
-                (*spikes)[j].push_back(currentTime);
-            }
+    for (size_t j = 0; j < neurons->size(); ++j) {
+        (*neurons)[j].receiveCurrent(12.0);
+        (*neurons)[j].update(dt);
+        if ((*neurons)[j].hasFired()) {
+            (*spikes)[j].push_back(currentTime);
         }
     }
-    auto end = high_resolution_clock::now();
-    auto duration = duration_cast<milliseconds>(end - start);
-    cout << "Thread execution time: " << duration.count() << " ms" << endl;
 
     pthread_exit(NULL);
+}
+
+
+struct ThreadDataSynapse
+{
+    vector<ExponentialSynapse>* synapse;
+};
+
+void* updateSynapse(void* arg){
+
 }
 
 int main() {
@@ -189,16 +186,23 @@ int main() {
     cout << "Initialization time: " << duration.count() << " ms" << endl;
 
     pthread_t threadE, threadI;
+    pthread_t syn1,syn2,syn3,syn4;
     ThreadData dataE, dataI;
 
     dataE.neurons = &net.groupE;
-    dataE.spikes = &net.spikesE;
-    dataE.stimuTime = stimuTime;
 
     dataI.neurons = &net.groupI;
-    dataI.spikes = &net.spikesI;
-    dataI.stimuTime = stimuTime;
 
+    for (int i = 0; i < step; i++)
+    {
+        pthread_create(&syn1, NULL, updateSynapse, &synapse1);
+        pthread_create(&syn2, NULL, updateSynapse, &synapse2);
+        pthread_create(&syn3, NULL, updateSynapse, &synapse3);
+        pthread_create(&syn4, NULL, updateSynapse, &synapse4);
+        pthread_join();
+        pthread_create(&threadE, NULL, updateNeurons, &dataE);
+    }
+    
     if (pthread_create(&threadE, NULL, updateNeurons, &dataE)) {
         cerr << "Error: Unable to create thread for groupE" << endl;
         return -1;
