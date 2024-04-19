@@ -151,11 +151,11 @@ struct ThreadData {
     vector<LIFNeuron>* neurons;
 };
 
-void* updateNeurons(void* arg) {
+void* updateNeurons(void* arg,float currentTime) {
     ThreadData* data = reinterpret_cast<ThreadData*>(arg);
     vector<LIFNeuron>* neurons = data->neurons;
 
-    for (size_t j = 0; j < neurons->size(); ++j) {
+    for (int j = 0; j < neurons->size(); ++j) {
         (*neurons)[j].receiveCurrent(12.0);
         (*neurons)[j].update(dt);
         if ((*neurons)[j].hasFired()) {
@@ -173,7 +173,13 @@ struct ThreadDataSynapse
 };
 
 void* updateSynapse(void* arg){
-
+    ThreadDataSynapse* data = reinterpret_cast<ThreadDataSynapse*>(arg);
+    vector<ExponentialSynapse>* synapse=data->synapse;
+    for (int i = 0; i < synapse->size(); i++)
+    {
+        (*synapse)[j].update
+    }
+    
 }
 
 int main() {
@@ -192,16 +198,26 @@ int main() {
 
     dataE.neurons = &net.groupE;
     dataI.neurons = &net.groupI;
-    dateE2E.syn
+    dataE2E.synapse = &net.E2E;
+    dataE2I.synapse = &net.E2E;
+    dataI2I.synapse = &net.E2E;
+    dataI2I.synapse = &net.E2E;
+    
 
     for (int i = 0; i < step; i++)
     {
-        pthread_create(&syn1, NULL, updateSynapse, &synapse1);
-        pthread_create(&syn2, NULL, updateSynapse, &synapse2);
-        pthread_create(&syn3, NULL, updateSynapse, &synapse3);
-        pthread_create(&syn4, NULL, updateSynapse, &synapse4);
-        pthread_join();
+        pthread_create(&syn1, NULL, updateSynapse, &dataE2E);
+        pthread_create(&syn2, NULL, updateSynapse, &dataE2I);
+        pthread_create(&syn3, NULL, updateSynapse, &dataI2I);
+        pthread_create(&syn4, NULL, updateSynapse, &dataI2E);
+        pthread_join(syn1);
+        pthread_join(syn2);
+        pthread_join(syn3);
+        pthread_join(syn4);
         pthread_create(&threadE, NULL, updateNeurons, &dataE);
+        pthread_create(&threadI, NULL, updateNeurons, &dataI);
+        pthread_join(threadE);
+        pthread_join(threadI);
     }
     
     if (pthread_create(&threadE, NULL, updateNeurons, &dataE)) {
