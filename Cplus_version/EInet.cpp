@@ -148,39 +148,6 @@ class EInet{
     }
 };
 
-
-struct ThreadData {
-    vector<LIFNeuron>* neurons;
-    vector<vector<float>>* spikes;
-    float stimuTime;
-};
-
-void* updateNeurons(void* arg) {
-    ThreadData* data = reinterpret_cast<ThreadData*>(arg);
-    vector<LIFNeuron>* neurons = data->neurons;
-    vector<vector<float>>* spikes = data->spikes;
-    float stimuTime = data->stimuTime;
-
-    auto start = high_resolution_clock::now();
-    float dt = 0.1;
-    int step = stimuTime / dt;
-    for (int i = 0; i < step; ++i) {
-        float currentTime = i * dt;
-        for (size_t j = 0; j < neurons->size(); ++j) {
-            (*neurons)[j].receiveCurrent(12.0);
-            (*neurons)[j].update(dt);
-            if ((*neurons)[j].hasFired()) {
-                (*spikes)[j].push_back(currentTime);
-            }
-        }
-    }
-    auto end = high_resolution_clock::now();
-    auto duration = duration_cast<milliseconds>(end - start);
-    cout << "Thread execution time: " << duration.count() << " ms" << endl;
-
-    pthread_exit(NULL);
-}
-
 int main(){
     srand(time(0));
     float stimuTime=500.0;

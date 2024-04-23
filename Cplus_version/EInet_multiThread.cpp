@@ -5,6 +5,7 @@
 #include "src.h"
 #include <time.h>
 #include <fstream>
+#include <pthread.h>
 
 using namespace std;
 using namespace std::chrono;
@@ -149,12 +150,17 @@ class EInet{
 
 struct ThreadData {
     vector<LIFNeuron>* neurons;
+    vector<vector<float>>* spikes;
+    float dt;
+    float currentTime;
 };
 
-void* updateNeurons(void* arg,float currentTime) {
+void* updateNeurons(void* arg) {
     ThreadData* data = reinterpret_cast<ThreadData*>(arg);
     vector<LIFNeuron>* neurons = data->neurons;
-
+    vector<vector<float>>* spikes = data->spikes;
+    float dt = data -> dt;
+    float currentTime=data->currentTime;
     for (int j = 0; j < neurons->size(); ++j) {
         (*neurons)[j].receiveCurrent(12.0);
         (*neurons)[j].update(dt);
@@ -162,28 +168,31 @@ void* updateNeurons(void* arg,float currentTime) {
             (*spikes)[j].push_back(currentTime);
         }
     }
-
-    pthread_exit(NULL);
+    return NULL;
 }
 
 
 struct ThreadDataSynapse
 {
     vector<ExponentialSynapse>* synapse;
+    float dt=0.1;
 };
 
 void* updateSynapse(void* arg){
     ThreadDataSynapse* data = reinterpret_cast<ThreadDataSynapse*>(arg);
     vector<ExponentialSynapse>* synapse=data->synapse;
+    float dt=data->dt;
     for (int i = 0; i < synapse->size(); i++)
     {
-        (*synapse)[j].update
+        (*synapse)[i].update(dt);
     }
-    
+    return NULL;
 }
 
 int main() {
     srand(time(0));
+    float dt=0.1;
+    float currentTime=0.0;
     float stimuTime = 500.0;
     auto start = high_resolution_clock::now();
     EInet net;
@@ -197,42 +206,44 @@ int main() {
     ThreadDataSynapse dataE2E,dataE2I,dataI2I,dataI2E;
 
     dataE.neurons = &net.groupE;
+    dataE.spikes = &net.spikesE;
+    dataE.dt=dt;
+    dataE.currentTime=currentTime;
     dataI.neurons = &net.groupI;
+    dataI.spikes = &net.spikesI;
+    dataI.dt=dt;
+    dataI.currentTime=currentTime;
     dataE2E.synapse = &net.E2E;
-    dataE2I.synapse = &net.E2E;
-    dataI2I.synapse = &net.E2E;
-    dataI2I.synapse = &net.E2E;
-    
-
+    dataE2E.dt=dt;
+    dataE2I.synapse = &net.E2I;
+    dataE2I.dt=dt;
+    dataI2I.synapse = &net.I2I;
+    dataI2I.dt=dt;
+    dataI2E.synapse = &net.I2E;
+    dataI2E.dt=dt;
+    auto start_stim = high_resolution_clock::now();
+    int step = stimuTime / dt;
     for (int i = 0; i < step; i++)
     {
+        currentTime+=dt;
+        dataE.currentTime=currentTime;
+        dataI.currentTime=currentTime;
         pthread_create(&syn1, NULL, updateSynapse, &dataE2E);
         pthread_create(&syn2, NULL, updateSynapse, &dataE2I);
         pthread_create(&syn3, NULL, updateSynapse, &dataI2I);
         pthread_create(&syn4, NULL, updateSynapse, &dataI2E);
-        pthread_join(syn1);
-        pthread_join(syn2);
-        pthread_join(syn3);
-        pthread_join(syn4);
+        pthread_join(syn1,NULL);
+        pthread_join(syn2,NULL);
+        pthread_join(syn3,NULL);
+        pthread_join(syn4,NULL);
         pthread_create(&threadE, NULL, updateNeurons, &dataE);
         pthread_create(&threadI, NULL, updateNeurons, &dataI);
-        pthread_join(threadE);
-        pthread_join(threadI);
+        pthread_join(threadE,NULL);
+        pthread_join(threadI,NULL);
     }
-    
-    if (pthread_create(&threadE, NULL, updateNeurons, &dataE)) {
-        cerr << "Error: Unable to create thread for groupE" << endl;
-        return -1;
-    }
-
-    if (pthread_create(&threadI, NULL, updateNeurons, &dataI)) {
-        cerr << "Error: Unable to create thread for groupI" << endl;
-        return -1;
-    }
-
-    pthread_join(threadE, NULL);
-    pthread_join(threadI, NULL);
-
+    auto end_stim = high_resolution_clock::now();
+    auto duration_stim = duration_cast<milliseconds>(end_stim - start_stim);
+    cout << "stimuTime: " << duration_stim.count() << " ms" << endl;
     net.saveSpikeTimes();
 
     return 0;
