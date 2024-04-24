@@ -27,8 +27,8 @@ class EInet{
     float E_GABA=-80.0;
     float dt=0.1;
     float fixprob=0.02;
-    int numE=4000;
-    int numI=1000;
+    int numE=20000;
+    int numI=5000;
     
     vector<LIFNeuron> groupE;
     vector<LIFNeuron> groupI;
@@ -193,7 +193,7 @@ int main() {
     srand(time(0));
     float dt=0.1;
     float currentTime=0.0;
-    float stimuTime = 500.0;
+    float stimuTime = 1000.0;
     auto start = high_resolution_clock::now();
     EInet net;
     auto end = high_resolution_clock::now();
