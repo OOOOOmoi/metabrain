@@ -7,9 +7,11 @@
 #include <fstream>
 #include <pthread.h>
 #include <threadpool.hpp>
+#include <mutex>
+
 using namespace std;
 using namespace std::chrono;
-
+mutex mtx;
 const string E_spike_file = "E_spike_times.txt";
 const string I_spike_file = "I_spike_times.txt";
 
@@ -125,13 +127,18 @@ struct ThreadData {
     vector<vector<float>>* spikes;
     float dt;
     float currentTime;
+    int flag1;
+    int flag2;
 };
 
 void updateNeurons(void* arg) {
+    std::lock_guard<std::mutex> lk(mtx);
     ThreadData* data = reinterpret_cast<ThreadData*>(arg);
     vector<LIFNeuron>* neurons = data->neurons;
     vector<vector<float>>* spikes = data->spikes;
     float dt = data -> dt;
+    int* flag1=data->flag1;
+    int* flag2=data->flag2;
     float currentTime=data->currentTime;
     for (int j = 0; j < neurons->size(); ++j) {
         (*neurons)[j].receiveCurrent(12.0);
@@ -140,6 +147,8 @@ void updateNeurons(void* arg) {
             (*spikes)[j].push_back(currentTime);
         }
     }
+    flag2=flag2+2;
+    flag1=flag1-2;
 }
 
 
@@ -147,16 +156,23 @@ struct ThreadDataSynapse
 {
     vector<ExponentialSynapse>* synapse;
     float dt=0.1;
+    int flag1;
+    int flag2;
 };
 
 void updateSynapse(void* arg){
+    std::lock_guard<std::mutex> lk(mtx);
     ThreadDataSynapse* data = reinterpret_cast<ThreadDataSynapse*>(arg);
     vector<ExponentialSynapse>* synapse=data->synapse;
     float dt=data->dt;
+    int* flag1=data->flag1;
+    int* flag2=data->flag2;
     for (int i = 0; i < synapse->size(); i++)
     {
         (*synapse)[i].update(dt);
     }
+    flag1++;
+    flag2--;
 }
 
 int main() {
@@ -178,10 +194,14 @@ int main() {
     dataE.neurons = &net.groupE;
     dataE.spikes = &net.spikesE;
     dataE.dt=dt;
+    dataE.flag1=&flag1;
+    dataE.flag2=&flag2;
     dataE.currentTime=currentTime;
     dataI.neurons = &net.groupI;
     dataI.spikes = &net.spikesI;
     dataI.dt=dt;
+    dataI.flag1=&flag1;
+    dataI.flag2=&flag2;
     dataI.currentTime=currentTime;
     dataE2E.synapse = &net.E2E;
     dataE2E.dt=dt;
@@ -198,10 +218,20 @@ int main() {
         currentTime+=dt;
         dataE.currentTime=currentTime;
         dataI.currentTime=currentTime;
-        pool->pushJob(updateSynapse,&dataE2E,sizeof(dataE2E));
-        pool->pushJob(updateSynapse,&dataE2I,sizeof(dataE2I));
-        pool->pushJob(updateSynapse,&dataI2I,sizeof(dataI2I));
-        pool->pushJob(updateSynapse,&dataI2E,sizeof(dataI2E));
+        if (flag2==4)
+        {
+            pool->pushJob(updateSynapse,&dataE2E,sizeof(dataE2E));
+            pool->pushJob(updateSynapse,&dataE2I,sizeof(dataE2I));
+            pool->pushJob(updateSynapse,&dataI2I,sizeof(dataI2I));
+            pool->pushJob(updateSynapse,&dataI2E,sizeof(dataI2E));
+        }
+        if (flag1==4)
+        {
+            pool->pushJob(updateNeurons,&dataE,sizeof(dataE));
+            pool->pushJob(updateNeurons,&dataI,sizeof(dataE));
+        }
+        
+        
     }
     auto end_stim = high_resolution_clock::now();
     auto duration_stim = duration_cast<milliseconds>(end_stim - start_stim);
