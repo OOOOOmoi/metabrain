@@ -26,8 +26,8 @@ class EInet{
     float E_GABA=-80.0;
     float dt=0.1;
     float fixprob=0.02;
-    int numE=20000;
-    int numI=5000;
+    int numE=4000;
+    int numI=1000;
     
     vector<LIFNeuron> groupE;
     vector<LIFNeuron> groupI;

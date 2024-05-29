@@ -1,0 +1,887 @@
+========= COMPUTE-SANITIZER
+========= Invalid __global__ read of size 4 bytes
+=========     at 0x3e0 in /home/yangjinhao/stucture/Cplus_version/brunel_output.cu:63:updateSynapse(int, ExponentialSynapse &, LIFNeuron *, LIFNeuron *, float)
+=========     by thread (160,0,0) in block (3906,0,0)
+=========     Address 0x7fc2a56e3f00 is out of bounds
+=========     and is 2,305 bytes after the nearest allocation at 0x7fc2a4000000 of size 24,000,000 bytes
+=========     Device Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:96:simulateSynapses(ExponentialSynapse *, LIFNeuron *, LIFNeuron *, int, float) [0x650]
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x332510]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0x1407e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:cudaLaunchKernel [0x7428e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/usr/local/cuda-12.2/bin/../targets/x86_64-linux/include/cuda_runtime.h:216:cudaError cudaLaunchKernel<char>(char const*, dim3, dim3, void**, unsigned long, CUstream_st*) [0xd906]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/tmp/tmpxft_00172d8e_00000000-6_brunel_output.cudafe1.stub.c:1:__device_stub__Z16simulateSynapsesP18ExponentialSynapseP9LIFNeuronS2_if(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd6c7]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:99:simulateSynapses(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd72d]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:312:main [0xcd39]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:../csu/libc-start.c:342:__libc_start_main [0x24083]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0xac5e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+========= 
+========= Invalid __global__ read of size 4 bytes
+=========     at 0x3e0 in /home/yangjinhao/stucture/Cplus_version/brunel_output.cu:63:updateSynapse(int, ExponentialSynapse &, LIFNeuron *, LIFNeuron *, float)
+=========     by thread (161,0,0) in block (3906,0,0)
+=========     Address 0x7fc2a56e3f18 is out of bounds
+=========     and is 2,329 bytes after the nearest allocation at 0x7fc2a4000000 of size 24,000,000 bytes
+=========     Device Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:96:simulateSynapses(ExponentialSynapse *, LIFNeuron *, LIFNeuron *, int, float) [0x650]
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x332510]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0x1407e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:cudaLaunchKernel [0x7428e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/usr/local/cuda-12.2/bin/../targets/x86_64-linux/include/cuda_runtime.h:216:cudaError cudaLaunchKernel<char>(char const*, dim3, dim3, void**, unsigned long, CUstream_st*) [0xd906]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/tmp/tmpxft_00172d8e_00000000-6_brunel_output.cudafe1.stub.c:1:__device_stub__Z16simulateSynapsesP18ExponentialSynapseP9LIFNeuronS2_if(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd6c7]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:99:simulateSynapses(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd72d]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:312:main [0xcd39]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:../csu/libc-start.c:342:__libc_start_main [0x24083]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0xac5e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+========= 
+========= Invalid __global__ read of size 4 bytes
+=========     at 0x3e0 in /home/yangjinhao/stucture/Cplus_version/brunel_output.cu:63:updateSynapse(int, ExponentialSynapse &, LIFNeuron *, LIFNeuron *, float)
+=========     by thread (162,0,0) in block (3906,0,0)
+=========     Address 0x7fc2a56e3f30 is out of bounds
+=========     and is 2,353 bytes after the nearest allocation at 0x7fc2a4000000 of size 24,000,000 bytes
+=========     Device Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:96:simulateSynapses(ExponentialSynapse *, LIFNeuron *, LIFNeuron *, int, float) [0x650]
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x332510]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0x1407e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:cudaLaunchKernel [0x7428e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/usr/local/cuda-12.2/bin/../targets/x86_64-linux/include/cuda_runtime.h:216:cudaError cudaLaunchKernel<char>(char const*, dim3, dim3, void**, unsigned long, CUstream_st*) [0xd906]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/tmp/tmpxft_00172d8e_00000000-6_brunel_output.cudafe1.stub.c:1:__device_stub__Z16simulateSynapsesP18ExponentialSynapseP9LIFNeuronS2_if(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd6c7]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:99:simulateSynapses(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd72d]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:312:main [0xcd39]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:../csu/libc-start.c:342:__libc_start_main [0x24083]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0xac5e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+========= 
+========= Invalid __global__ read of size 4 bytes
+=========     at 0x3e0 in /home/yangjinhao/stucture/Cplus_version/brunel_output.cu:63:updateSynapse(int, ExponentialSynapse &, LIFNeuron *, LIFNeuron *, float)
+=========     by thread (163,0,0) in block (3906,0,0)
+=========     Address 0x7fc2a56e3f48 is out of bounds
+=========     and is 2,377 bytes after the nearest allocation at 0x7fc2a4000000 of size 24,000,000 bytes
+=========     Device Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:96:simulateSynapses(ExponentialSynapse *, LIFNeuron *, LIFNeuron *, int, float) [0x650]
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x332510]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0x1407e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:cudaLaunchKernel [0x7428e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/usr/local/cuda-12.2/bin/../targets/x86_64-linux/include/cuda_runtime.h:216:cudaError cudaLaunchKernel<char>(char const*, dim3, dim3, void**, unsigned long, CUstream_st*) [0xd906]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/tmp/tmpxft_00172d8e_00000000-6_brunel_output.cudafe1.stub.c:1:__device_stub__Z16simulateSynapsesP18ExponentialSynapseP9LIFNeuronS2_if(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd6c7]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:99:simulateSynapses(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd72d]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:312:main [0xcd39]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:../csu/libc-start.c:342:__libc_start_main [0x24083]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0xac5e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+========= 
+========= Invalid __global__ read of size 4 bytes
+=========     at 0x3e0 in /home/yangjinhao/stucture/Cplus_version/brunel_output.cu:63:updateSynapse(int, ExponentialSynapse &, LIFNeuron *, LIFNeuron *, float)
+=========     by thread (164,0,0) in block (3906,0,0)
+=========     Address 0x7fc2a56e3f60 is out of bounds
+=========     and is 2,401 bytes after the nearest allocation at 0x7fc2a4000000 of size 24,000,000 bytes
+=========     Device Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:96:simulateSynapses(ExponentialSynapse *, LIFNeuron *, LIFNeuron *, int, float) [0x650]
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x332510]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0x1407e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:cudaLaunchKernel [0x7428e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/usr/local/cuda-12.2/bin/../targets/x86_64-linux/include/cuda_runtime.h:216:cudaError cudaLaunchKernel<char>(char const*, dim3, dim3, void**, unsigned long, CUstream_st*) [0xd906]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/tmp/tmpxft_00172d8e_00000000-6_brunel_output.cudafe1.stub.c:1:__device_stub__Z16simulateSynapsesP18ExponentialSynapseP9LIFNeuronS2_if(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd6c7]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:99:simulateSynapses(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd72d]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:312:main [0xcd39]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:../csu/libc-start.c:342:__libc_start_main [0x24083]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0xac5e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+========= 
+========= Invalid __global__ read of size 4 bytes
+=========     at 0x3e0 in /home/yangjinhao/stucture/Cplus_version/brunel_output.cu:63:updateSynapse(int, ExponentialSynapse &, LIFNeuron *, LIFNeuron *, float)
+=========     by thread (165,0,0) in block (3906,0,0)
+=========     Address 0x7fc2a56e3f78 is out of bounds
+=========     and is 2,425 bytes after the nearest allocation at 0x7fc2a4000000 of size 24,000,000 bytes
+=========     Device Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:96:simulateSynapses(ExponentialSynapse *, LIFNeuron *, LIFNeuron *, int, float) [0x650]
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x332510]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0x1407e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:cudaLaunchKernel [0x7428e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/usr/local/cuda-12.2/bin/../targets/x86_64-linux/include/cuda_runtime.h:216:cudaError cudaLaunchKernel<char>(char const*, dim3, dim3, void**, unsigned long, CUstream_st*) [0xd906]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/tmp/tmpxft_00172d8e_00000000-6_brunel_output.cudafe1.stub.c:1:__device_stub__Z16simulateSynapsesP18ExponentialSynapseP9LIFNeuronS2_if(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd6c7]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:99:simulateSynapses(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd72d]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:312:main [0xcd39]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:../csu/libc-start.c:342:__libc_start_main [0x24083]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0xac5e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+========= 
+========= Invalid __global__ read of size 4 bytes
+=========     at 0x3e0 in /home/yangjinhao/stucture/Cplus_version/brunel_output.cu:63:updateSynapse(int, ExponentialSynapse &, LIFNeuron *, LIFNeuron *, float)
+=========     by thread (166,0,0) in block (3906,0,0)
+=========     Address 0x7fc2a56e3f90 is out of bounds
+=========     and is 2,449 bytes after the nearest allocation at 0x7fc2a4000000 of size 24,000,000 bytes
+=========     Device Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:96:simulateSynapses(ExponentialSynapse *, LIFNeuron *, LIFNeuron *, int, float) [0x650]
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x332510]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0x1407e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:cudaLaunchKernel [0x7428e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/usr/local/cuda-12.2/bin/../targets/x86_64-linux/include/cuda_runtime.h:216:cudaError cudaLaunchKernel<char>(char const*, dim3, dim3, void**, unsigned long, CUstream_st*) [0xd906]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/tmp/tmpxft_00172d8e_00000000-6_brunel_output.cudafe1.stub.c:1:__device_stub__Z16simulateSynapsesP18ExponentialSynapseP9LIFNeuronS2_if(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd6c7]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:99:simulateSynapses(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd72d]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:312:main [0xcd39]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:../csu/libc-start.c:342:__libc_start_main [0x24083]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0xac5e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+========= 
+========= Invalid __global__ read of size 4 bytes
+=========     at 0x3e0 in /home/yangjinhao/stucture/Cplus_version/brunel_output.cu:63:updateSynapse(int, ExponentialSynapse &, LIFNeuron *, LIFNeuron *, float)
+=========     by thread (167,0,0) in block (3906,0,0)
+=========     Address 0x7fc2a56e3fa8 is out of bounds
+=========     and is 2,473 bytes after the nearest allocation at 0x7fc2a4000000 of size 24,000,000 bytes
+=========     Device Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:96:simulateSynapses(ExponentialSynapse *, LIFNeuron *, LIFNeuron *, int, float) [0x650]
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x332510]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0x1407e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:cudaLaunchKernel [0x7428e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/usr/local/cuda-12.2/bin/../targets/x86_64-linux/include/cuda_runtime.h:216:cudaError cudaLaunchKernel<char>(char const*, dim3, dim3, void**, unsigned long, CUstream_st*) [0xd906]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/tmp/tmpxft_00172d8e_00000000-6_brunel_output.cudafe1.stub.c:1:__device_stub__Z16simulateSynapsesP18ExponentialSynapseP9LIFNeuronS2_if(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd6c7]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:99:simulateSynapses(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd72d]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:312:main [0xcd39]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:../csu/libc-start.c:342:__libc_start_main [0x24083]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0xac5e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+========= 
+========= Invalid __global__ read of size 4 bytes
+=========     at 0x3e0 in /home/yangjinhao/stucture/Cplus_version/brunel_output.cu:63:updateSynapse(int, ExponentialSynapse &, LIFNeuron *, LIFNeuron *, float)
+=========     by thread (168,0,0) in block (3906,0,0)
+=========     Address 0x7fc2a56e3fc0 is out of bounds
+=========     and is 2,497 bytes after the nearest allocation at 0x7fc2a4000000 of size 24,000,000 bytes
+=========     Device Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:96:simulateSynapses(ExponentialSynapse *, LIFNeuron *, LIFNeuron *, int, float) [0x650]
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x332510]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0x1407e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:cudaLaunchKernel [0x7428e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/usr/local/cuda-12.2/bin/../targets/x86_64-linux/include/cuda_runtime.h:216:cudaError cudaLaunchKernel<char>(char const*, dim3, dim3, void**, unsigned long, CUstream_st*) [0xd906]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/tmp/tmpxft_00172d8e_00000000-6_brunel_output.cudafe1.stub.c:1:__device_stub__Z16simulateSynapsesP18ExponentialSynapseP9LIFNeuronS2_if(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd6c7]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:99:simulateSynapses(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd72d]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:312:main [0xcd39]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:../csu/libc-start.c:342:__libc_start_main [0x24083]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0xac5e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+========= 
+========= Invalid __global__ read of size 4 bytes
+=========     at 0x3e0 in /home/yangjinhao/stucture/Cplus_version/brunel_output.cu:63:updateSynapse(int, ExponentialSynapse &, LIFNeuron *, LIFNeuron *, float)
+=========     by thread (169,0,0) in block (3906,0,0)
+=========     Address 0x7fc2a56e3fd8 is out of bounds
+=========     and is 2,521 bytes after the nearest allocation at 0x7fc2a4000000 of size 24,000,000 bytes
+=========     Device Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:96:simulateSynapses(ExponentialSynapse *, LIFNeuron *, LIFNeuron *, int, float) [0x650]
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x332510]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0x1407e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:cudaLaunchKernel [0x7428e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/usr/local/cuda-12.2/bin/../targets/x86_64-linux/include/cuda_runtime.h:216:cudaError cudaLaunchKernel<char>(char const*, dim3, dim3, void**, unsigned long, CUstream_st*) [0xd906]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/tmp/tmpxft_00172d8e_00000000-6_brunel_output.cudafe1.stub.c:1:__device_stub__Z16simulateSynapsesP18ExponentialSynapseP9LIFNeuronS2_if(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd6c7]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:99:simulateSynapses(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd72d]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:312:main [0xcd39]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:../csu/libc-start.c:342:__libc_start_main [0x24083]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0xac5e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+========= 
+========= Invalid __global__ read of size 4 bytes
+=========     at 0x3e0 in /home/yangjinhao/stucture/Cplus_version/brunel_output.cu:63:updateSynapse(int, ExponentialSynapse &, LIFNeuron *, LIFNeuron *, float)
+=========     by thread (170,0,0) in block (3906,0,0)
+=========     Address 0x7fc2a56e3ff0 is out of bounds
+=========     and is 2,545 bytes after the nearest allocation at 0x7fc2a4000000 of size 24,000,000 bytes
+=========     Device Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:96:simulateSynapses(ExponentialSynapse *, LIFNeuron *, LIFNeuron *, int, float) [0x650]
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x332510]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0x1407e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:cudaLaunchKernel [0x7428e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/usr/local/cuda-12.2/bin/../targets/x86_64-linux/include/cuda_runtime.h:216:cudaError cudaLaunchKernel<char>(char const*, dim3, dim3, void**, unsigned long, CUstream_st*) [0xd906]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/tmp/tmpxft_00172d8e_00000000-6_brunel_output.cudafe1.stub.c:1:__device_stub__Z16simulateSynapsesP18ExponentialSynapseP9LIFNeuronS2_if(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd6c7]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:99:simulateSynapses(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd72d]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:312:main [0xcd39]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:../csu/libc-start.c:342:__libc_start_main [0x24083]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0xac5e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+========= 
+========= Invalid __global__ read of size 4 bytes
+=========     at 0x3e0 in /home/yangjinhao/stucture/Cplus_version/brunel_output.cu:63:updateSynapse(int, ExponentialSynapse &, LIFNeuron *, LIFNeuron *, float)
+=========     by thread (171,0,0) in block (3906,0,0)
+=========     Address 0x7fc2a56e4008 is out of bounds
+=========     and is 2,569 bytes after the nearest allocation at 0x7fc2a4000000 of size 24,000,000 bytes
+=========     Device Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:96:simulateSynapses(ExponentialSynapse *, LIFNeuron *, LIFNeuron *, int, float) [0x650]
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x332510]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0x1407e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:cudaLaunchKernel [0x7428e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/usr/local/cuda-12.2/bin/../targets/x86_64-linux/include/cuda_runtime.h:216:cudaError cudaLaunchKernel<char>(char const*, dim3, dim3, void**, unsigned long, CUstream_st*) [0xd906]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/tmp/tmpxft_00172d8e_00000000-6_brunel_output.cudafe1.stub.c:1:__device_stub__Z16simulateSynapsesP18ExponentialSynapseP9LIFNeuronS2_if(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd6c7]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:99:simulateSynapses(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd72d]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:312:main [0xcd39]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:../csu/libc-start.c:342:__libc_start_main [0x24083]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0xac5e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+========= 
+========= Invalid __global__ read of size 4 bytes
+=========     at 0x3e0 in /home/yangjinhao/stucture/Cplus_version/brunel_output.cu:63:updateSynapse(int, ExponentialSynapse &, LIFNeuron *, LIFNeuron *, float)
+=========     by thread (172,0,0) in block (3906,0,0)
+=========     Address 0x7fc2a56e4020 is out of bounds
+=========     and is 2,593 bytes after the nearest allocation at 0x7fc2a4000000 of size 24,000,000 bytes
+=========     Device Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:96:simulateSynapses(ExponentialSynapse *, LIFNeuron *, LIFNeuron *, int, float) [0x650]
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x332510]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0x1407e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:cudaLaunchKernel [0x7428e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/usr/local/cuda-12.2/bin/../targets/x86_64-linux/include/cuda_runtime.h:216:cudaError cudaLaunchKernel<char>(char const*, dim3, dim3, void**, unsigned long, CUstream_st*) [0xd906]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/tmp/tmpxft_00172d8e_00000000-6_brunel_output.cudafe1.stub.c:1:__device_stub__Z16simulateSynapsesP18ExponentialSynapseP9LIFNeuronS2_if(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd6c7]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:99:simulateSynapses(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd72d]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:312:main [0xcd39]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:../csu/libc-start.c:342:__libc_start_main [0x24083]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0xac5e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+========= 
+========= Invalid __global__ read of size 4 bytes
+=========     at 0x3e0 in /home/yangjinhao/stucture/Cplus_version/brunel_output.cu:63:updateSynapse(int, ExponentialSynapse &, LIFNeuron *, LIFNeuron *, float)
+=========     by thread (173,0,0) in block (3906,0,0)
+=========     Address 0x7fc2a56e4038 is out of bounds
+=========     and is 2,617 bytes after the nearest allocation at 0x7fc2a4000000 of size 24,000,000 bytes
+=========     Device Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:96:simulateSynapses(ExponentialSynapse *, LIFNeuron *, LIFNeuron *, int, float) [0x650]
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x332510]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0x1407e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:cudaLaunchKernel [0x7428e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/usr/local/cuda-12.2/bin/../targets/x86_64-linux/include/cuda_runtime.h:216:cudaError cudaLaunchKernel<char>(char const*, dim3, dim3, void**, unsigned long, CUstream_st*) [0xd906]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/tmp/tmpxft_00172d8e_00000000-6_brunel_output.cudafe1.stub.c:1:__device_stub__Z16simulateSynapsesP18ExponentialSynapseP9LIFNeuronS2_if(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd6c7]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:99:simulateSynapses(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd72d]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:312:main [0xcd39]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:../csu/libc-start.c:342:__libc_start_main [0x24083]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0xac5e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+========= 
+========= Invalid __global__ read of size 4 bytes
+=========     at 0x3e0 in /home/yangjinhao/stucture/Cplus_version/brunel_output.cu:63:updateSynapse(int, ExponentialSynapse &, LIFNeuron *, LIFNeuron *, float)
+=========     by thread (174,0,0) in block (3906,0,0)
+=========     Address 0x7fc2a56e4050 is out of bounds
+=========     and is 2,641 bytes after the nearest allocation at 0x7fc2a4000000 of size 24,000,000 bytes
+=========     Device Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:96:simulateSynapses(ExponentialSynapse *, LIFNeuron *, LIFNeuron *, int, float) [0x650]
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x332510]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0x1407e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:cudaLaunchKernel [0x7428e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/usr/local/cuda-12.2/bin/../targets/x86_64-linux/include/cuda_runtime.h:216:cudaError cudaLaunchKernel<char>(char const*, dim3, dim3, void**, unsigned long, CUstream_st*) [0xd906]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/tmp/tmpxft_00172d8e_00000000-6_brunel_output.cudafe1.stub.c:1:__device_stub__Z16simulateSynapsesP18ExponentialSynapseP9LIFNeuronS2_if(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd6c7]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:99:simulateSynapses(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd72d]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:312:main [0xcd39]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:../csu/libc-start.c:342:__libc_start_main [0x24083]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0xac5e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+========= 
+========= Invalid __global__ read of size 4 bytes
+=========     at 0x3e0 in /home/yangjinhao/stucture/Cplus_version/brunel_output.cu:63:updateSynapse(int, ExponentialSynapse &, LIFNeuron *, LIFNeuron *, float)
+=========     by thread (175,0,0) in block (3906,0,0)
+=========     Address 0x7fc2a56e4068 is out of bounds
+=========     and is 2,665 bytes after the nearest allocation at 0x7fc2a4000000 of size 24,000,000 bytes
+=========     Device Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:96:simulateSynapses(ExponentialSynapse *, LIFNeuron *, LIFNeuron *, int, float) [0x650]
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x332510]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0x1407e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:cudaLaunchKernel [0x7428e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/usr/local/cuda-12.2/bin/../targets/x86_64-linux/include/cuda_runtime.h:216:cudaError cudaLaunchKernel<char>(char const*, dim3, dim3, void**, unsigned long, CUstream_st*) [0xd906]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/tmp/tmpxft_00172d8e_00000000-6_brunel_output.cudafe1.stub.c:1:__device_stub__Z16simulateSynapsesP18ExponentialSynapseP9LIFNeuronS2_if(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd6c7]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:99:simulateSynapses(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd72d]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:312:main [0xcd39]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:../csu/libc-start.c:342:__libc_start_main [0x24083]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0xac5e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+========= 
+========= Invalid __global__ read of size 4 bytes
+=========     at 0x3e0 in /home/yangjinhao/stucture/Cplus_version/brunel_output.cu:63:updateSynapse(int, ExponentialSynapse &, LIFNeuron *, LIFNeuron *, float)
+=========     by thread (176,0,0) in block (3906,0,0)
+=========     Address 0x7fc2a56e4080 is out of bounds
+=========     and is 2,689 bytes after the nearest allocation at 0x7fc2a4000000 of size 24,000,000 bytes
+=========     Device Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:96:simulateSynapses(ExponentialSynapse *, LIFNeuron *, LIFNeuron *, int, float) [0x650]
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x332510]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0x1407e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:cudaLaunchKernel [0x7428e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/usr/local/cuda-12.2/bin/../targets/x86_64-linux/include/cuda_runtime.h:216:cudaError cudaLaunchKernel<char>(char const*, dim3, dim3, void**, unsigned long, CUstream_st*) [0xd906]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/tmp/tmpxft_00172d8e_00000000-6_brunel_output.cudafe1.stub.c:1:__device_stub__Z16simulateSynapsesP18ExponentialSynapseP9LIFNeuronS2_if(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd6c7]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:99:simulateSynapses(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd72d]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:312:main [0xcd39]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:../csu/libc-start.c:342:__libc_start_main [0x24083]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0xac5e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+========= 
+========= Invalid __global__ read of size 4 bytes
+=========     at 0x3e0 in /home/yangjinhao/stucture/Cplus_version/brunel_output.cu:63:updateSynapse(int, ExponentialSynapse &, LIFNeuron *, LIFNeuron *, float)
+=========     by thread (177,0,0) in block (3906,0,0)
+=========     Address 0x7fc2a56e4098 is out of bounds
+=========     and is 2,713 bytes after the nearest allocation at 0x7fc2a4000000 of size 24,000,000 bytes
+=========     Device Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:96:simulateSynapses(ExponentialSynapse *, LIFNeuron *, LIFNeuron *, int, float) [0x650]
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x332510]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0x1407e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:cudaLaunchKernel [0x7428e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/usr/local/cuda-12.2/bin/../targets/x86_64-linux/include/cuda_runtime.h:216:cudaError cudaLaunchKernel<char>(char const*, dim3, dim3, void**, unsigned long, CUstream_st*) [0xd906]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/tmp/tmpxft_00172d8e_00000000-6_brunel_output.cudafe1.stub.c:1:__device_stub__Z16simulateSynapsesP18ExponentialSynapseP9LIFNeuronS2_if(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd6c7]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:99:simulateSynapses(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd72d]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:312:main [0xcd39]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:../csu/libc-start.c:342:__libc_start_main [0x24083]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0xac5e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+========= 
+========= Invalid __global__ read of size 4 bytes
+=========     at 0x3e0 in /home/yangjinhao/stucture/Cplus_version/brunel_output.cu:63:updateSynapse(int, ExponentialSynapse &, LIFNeuron *, LIFNeuron *, float)
+=========     by thread (178,0,0) in block (3906,0,0)
+=========     Address 0x7fc2a56e40b0 is out of bounds
+=========     and is 2,737 bytes after the nearest allocation at 0x7fc2a4000000 of size 24,000,000 bytes
+=========     Device Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:96:simulateSynapses(ExponentialSynapse *, LIFNeuron *, LIFNeuron *, int, float) [0x650]
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x332510]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0x1407e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:cudaLaunchKernel [0x7428e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/usr/local/cuda-12.2/bin/../targets/x86_64-linux/include/cuda_runtime.h:216:cudaError cudaLaunchKernel<char>(char const*, dim3, dim3, void**, unsigned long, CUstream_st*) [0xd906]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/tmp/tmpxft_00172d8e_00000000-6_brunel_output.cudafe1.stub.c:1:__device_stub__Z16simulateSynapsesP18ExponentialSynapseP9LIFNeuronS2_if(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd6c7]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:99:simulateSynapses(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd72d]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:312:main [0xcd39]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:../csu/libc-start.c:342:__libc_start_main [0x24083]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0xac5e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+========= 
+========= Invalid __global__ read of size 4 bytes
+=========     at 0x3e0 in /home/yangjinhao/stucture/Cplus_version/brunel_output.cu:63:updateSynapse(int, ExponentialSynapse &, LIFNeuron *, LIFNeuron *, float)
+=========     by thread (179,0,0) in block (3906,0,0)
+=========     Address 0x7fc2a56e40c8 is out of bounds
+=========     and is 2,761 bytes after the nearest allocation at 0x7fc2a4000000 of size 24,000,000 bytes
+=========     Device Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:96:simulateSynapses(ExponentialSynapse *, LIFNeuron *, LIFNeuron *, int, float) [0x650]
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x332510]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0x1407e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:cudaLaunchKernel [0x7428e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/usr/local/cuda-12.2/bin/../targets/x86_64-linux/include/cuda_runtime.h:216:cudaError cudaLaunchKernel<char>(char const*, dim3, dim3, void**, unsigned long, CUstream_st*) [0xd906]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/tmp/tmpxft_00172d8e_00000000-6_brunel_output.cudafe1.stub.c:1:__device_stub__Z16simulateSynapsesP18ExponentialSynapseP9LIFNeuronS2_if(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd6c7]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:99:simulateSynapses(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd72d]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:312:main [0xcd39]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:../csu/libc-start.c:342:__libc_start_main [0x24083]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0xac5e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+========= 
+========= Invalid __global__ read of size 4 bytes
+=========     at 0x3e0 in /home/yangjinhao/stucture/Cplus_version/brunel_output.cu:63:updateSynapse(int, ExponentialSynapse &, LIFNeuron *, LIFNeuron *, float)
+=========     by thread (180,0,0) in block (3906,0,0)
+=========     Address 0x7fc2a56e40e0 is out of bounds
+=========     and is 2,785 bytes after the nearest allocation at 0x7fc2a4000000 of size 24,000,000 bytes
+=========     Device Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:96:simulateSynapses(ExponentialSynapse *, LIFNeuron *, LIFNeuron *, int, float) [0x650]
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x332510]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0x1407e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:cudaLaunchKernel [0x7428e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/usr/local/cuda-12.2/bin/../targets/x86_64-linux/include/cuda_runtime.h:216:cudaError cudaLaunchKernel<char>(char const*, dim3, dim3, void**, unsigned long, CUstream_st*) [0xd906]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/tmp/tmpxft_00172d8e_00000000-6_brunel_output.cudafe1.stub.c:1:__device_stub__Z16simulateSynapsesP18ExponentialSynapseP9LIFNeuronS2_if(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd6c7]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:99:simulateSynapses(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd72d]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:312:main [0xcd39]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:../csu/libc-start.c:342:__libc_start_main [0x24083]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0xac5e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+========= 
+========= Invalid __global__ read of size 4 bytes
+=========     at 0x3e0 in /home/yangjinhao/stucture/Cplus_version/brunel_output.cu:63:updateSynapse(int, ExponentialSynapse &, LIFNeuron *, LIFNeuron *, float)
+=========     by thread (181,0,0) in block (3906,0,0)
+=========     Address 0x7fc2a56e40f8 is out of bounds
+=========     and is 2,809 bytes after the nearest allocation at 0x7fc2a4000000 of size 24,000,000 bytes
+=========     Device Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:96:simulateSynapses(ExponentialSynapse *, LIFNeuron *, LIFNeuron *, int, float) [0x650]
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x332510]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0x1407e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:cudaLaunchKernel [0x7428e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/usr/local/cuda-12.2/bin/../targets/x86_64-linux/include/cuda_runtime.h:216:cudaError cudaLaunchKernel<char>(char const*, dim3, dim3, void**, unsigned long, CUstream_st*) [0xd906]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/tmp/tmpxft_00172d8e_00000000-6_brunel_output.cudafe1.stub.c:1:__device_stub__Z16simulateSynapsesP18ExponentialSynapseP9LIFNeuronS2_if(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd6c7]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:99:simulateSynapses(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd72d]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:312:main [0xcd39]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:../csu/libc-start.c:342:__libc_start_main [0x24083]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0xac5e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+========= 
+========= Invalid __global__ read of size 4 bytes
+=========     at 0x3e0 in /home/yangjinhao/stucture/Cplus_version/brunel_output.cu:63:updateSynapse(int, ExponentialSynapse &, LIFNeuron *, LIFNeuron *, float)
+=========     by thread (182,0,0) in block (3906,0,0)
+=========     Address 0x7fc2a56e4110 is out of bounds
+=========     and is 2,833 bytes after the nearest allocation at 0x7fc2a4000000 of size 24,000,000 bytes
+=========     Device Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:96:simulateSynapses(ExponentialSynapse *, LIFNeuron *, LIFNeuron *, int, float) [0x650]
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x332510]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0x1407e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:cudaLaunchKernel [0x7428e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/usr/local/cuda-12.2/bin/../targets/x86_64-linux/include/cuda_runtime.h:216:cudaError cudaLaunchKernel<char>(char const*, dim3, dim3, void**, unsigned long, CUstream_st*) [0xd906]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/tmp/tmpxft_00172d8e_00000000-6_brunel_output.cudafe1.stub.c:1:__device_stub__Z16simulateSynapsesP18ExponentialSynapseP9LIFNeuronS2_if(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd6c7]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:99:simulateSynapses(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd72d]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:312:main [0xcd39]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:../csu/libc-start.c:342:__libc_start_main [0x24083]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0xac5e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+========= 
+========= Invalid __global__ read of size 4 bytes
+=========     at 0x3e0 in /home/yangjinhao/stucture/Cplus_version/brunel_output.cu:63:updateSynapse(int, ExponentialSynapse &, LIFNeuron *, LIFNeuron *, float)
+=========     by thread (183,0,0) in block (3906,0,0)
+=========     Address 0x7fc2a56e4128 is out of bounds
+=========     and is 2,857 bytes after the nearest allocation at 0x7fc2a4000000 of size 24,000,000 bytes
+=========     Device Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:96:simulateSynapses(ExponentialSynapse *, LIFNeuron *, LIFNeuron *, int, float) [0x650]
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x332510]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0x1407e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:cudaLaunchKernel [0x7428e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/usr/local/cuda-12.2/bin/../targets/x86_64-linux/include/cuda_runtime.h:216:cudaError cudaLaunchKernel<char>(char const*, dim3, dim3, void**, unsigned long, CUstream_st*) [0xd906]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/tmp/tmpxft_00172d8e_00000000-6_brunel_output.cudafe1.stub.c:1:__device_stub__Z16simulateSynapsesP18ExponentialSynapseP9LIFNeuronS2_if(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd6c7]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:99:simulateSynapses(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd72d]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:312:main [0xcd39]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:../csu/libc-start.c:342:__libc_start_main [0x24083]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0xac5e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+========= 
+========= Invalid __global__ read of size 4 bytes
+=========     at 0x3e0 in /home/yangjinhao/stucture/Cplus_version/brunel_output.cu:63:updateSynapse(int, ExponentialSynapse &, LIFNeuron *, LIFNeuron *, float)
+=========     by thread (184,0,0) in block (3906,0,0)
+=========     Address 0x7fc2a56e4140 is out of bounds
+=========     and is 2,881 bytes after the nearest allocation at 0x7fc2a4000000 of size 24,000,000 bytes
+=========     Device Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:96:simulateSynapses(ExponentialSynapse *, LIFNeuron *, LIFNeuron *, int, float) [0x650]
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x332510]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0x1407e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:cudaLaunchKernel [0x7428e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/usr/local/cuda-12.2/bin/../targets/x86_64-linux/include/cuda_runtime.h:216:cudaError cudaLaunchKernel<char>(char const*, dim3, dim3, void**, unsigned long, CUstream_st*) [0xd906]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/tmp/tmpxft_00172d8e_00000000-6_brunel_output.cudafe1.stub.c:1:__device_stub__Z16simulateSynapsesP18ExponentialSynapseP9LIFNeuronS2_if(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd6c7]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:99:simulateSynapses(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd72d]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:312:main [0xcd39]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:../csu/libc-start.c:342:__libc_start_main [0x24083]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0xac5e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+========= 
+========= Invalid __global__ read of size 4 bytes
+=========     at 0x3e0 in /home/yangjinhao/stucture/Cplus_version/brunel_output.cu:63:updateSynapse(int, ExponentialSynapse &, LIFNeuron *, LIFNeuron *, float)
+=========     by thread (185,0,0) in block (3906,0,0)
+=========     Address 0x7fc2a56e4158 is out of bounds
+=========     and is 2,905 bytes after the nearest allocation at 0x7fc2a4000000 of size 24,000,000 bytes
+=========     Device Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:96:simulateSynapses(ExponentialSynapse *, LIFNeuron *, LIFNeuron *, int, float) [0x650]
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x332510]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0x1407e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:cudaLaunchKernel [0x7428e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/usr/local/cuda-12.2/bin/../targets/x86_64-linux/include/cuda_runtime.h:216:cudaError cudaLaunchKernel<char>(char const*, dim3, dim3, void**, unsigned long, CUstream_st*) [0xd906]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/tmp/tmpxft_00172d8e_00000000-6_brunel_output.cudafe1.stub.c:1:__device_stub__Z16simulateSynapsesP18ExponentialSynapseP9LIFNeuronS2_if(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd6c7]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:99:simulateSynapses(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd72d]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:312:main [0xcd39]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:../csu/libc-start.c:342:__libc_start_main [0x24083]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0xac5e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+========= 
+========= Invalid __global__ read of size 4 bytes
+=========     at 0x3e0 in /home/yangjinhao/stucture/Cplus_version/brunel_output.cu:63:updateSynapse(int, ExponentialSynapse &, LIFNeuron *, LIFNeuron *, float)
+=========     by thread (186,0,0) in block (3906,0,0)
+=========     Address 0x7fc2a56e4170 is out of bounds
+=========     and is 2,929 bytes after the nearest allocation at 0x7fc2a4000000 of size 24,000,000 bytes
+=========     Device Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:96:simulateSynapses(ExponentialSynapse *, LIFNeuron *, LIFNeuron *, int, float) [0x650]
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x332510]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0x1407e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:cudaLaunchKernel [0x7428e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/usr/local/cuda-12.2/bin/../targets/x86_64-linux/include/cuda_runtime.h:216:cudaError cudaLaunchKernel<char>(char const*, dim3, dim3, void**, unsigned long, CUstream_st*) [0xd906]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/tmp/tmpxft_00172d8e_00000000-6_brunel_output.cudafe1.stub.c:1:__device_stub__Z16simulateSynapsesP18ExponentialSynapseP9LIFNeuronS2_if(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd6c7]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:99:simulateSynapses(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd72d]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:312:main [0xcd39]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:../csu/libc-start.c:342:__libc_start_main [0x24083]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0xac5e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+========= 
+========= Invalid __global__ read of size 4 bytes
+=========     at 0x3e0 in /home/yangjinhao/stucture/Cplus_version/brunel_output.cu:63:updateSynapse(int, ExponentialSynapse &, LIFNeuron *, LIFNeuron *, float)
+=========     by thread (187,0,0) in block (3906,0,0)
+=========     Address 0x7fc2a56e4188 is out of bounds
+=========     and is 2,953 bytes after the nearest allocation at 0x7fc2a4000000 of size 24,000,000 bytes
+=========     Device Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:96:simulateSynapses(ExponentialSynapse *, LIFNeuron *, LIFNeuron *, int, float) [0x650]
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x332510]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0x1407e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:cudaLaunchKernel [0x7428e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/usr/local/cuda-12.2/bin/../targets/x86_64-linux/include/cuda_runtime.h:216:cudaError cudaLaunchKernel<char>(char const*, dim3, dim3, void**, unsigned long, CUstream_st*) [0xd906]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/tmp/tmpxft_00172d8e_00000000-6_brunel_output.cudafe1.stub.c:1:__device_stub__Z16simulateSynapsesP18ExponentialSynapseP9LIFNeuronS2_if(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd6c7]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:99:simulateSynapses(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd72d]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:312:main [0xcd39]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:../csu/libc-start.c:342:__libc_start_main [0x24083]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0xac5e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+========= 
+========= Invalid __global__ read of size 4 bytes
+=========     at 0x3e0 in /home/yangjinhao/stucture/Cplus_version/brunel_output.cu:63:updateSynapse(int, ExponentialSynapse &, LIFNeuron *, LIFNeuron *, float)
+=========     by thread (188,0,0) in block (3906,0,0)
+=========     Address 0x7fc2a56e41a0 is out of bounds
+=========     and is 2,977 bytes after the nearest allocation at 0x7fc2a4000000 of size 24,000,000 bytes
+=========     Device Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:96:simulateSynapses(ExponentialSynapse *, LIFNeuron *, LIFNeuron *, int, float) [0x650]
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x332510]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0x1407e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:cudaLaunchKernel [0x7428e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/usr/local/cuda-12.2/bin/../targets/x86_64-linux/include/cuda_runtime.h:216:cudaError cudaLaunchKernel<char>(char const*, dim3, dim3, void**, unsigned long, CUstream_st*) [0xd906]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/tmp/tmpxft_00172d8e_00000000-6_brunel_output.cudafe1.stub.c:1:__device_stub__Z16simulateSynapsesP18ExponentialSynapseP9LIFNeuronS2_if(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd6c7]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:99:simulateSynapses(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd72d]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:312:main [0xcd39]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:../csu/libc-start.c:342:__libc_start_main [0x24083]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0xac5e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+========= 
+========= Invalid __global__ read of size 4 bytes
+=========     at 0x3e0 in /home/yangjinhao/stucture/Cplus_version/brunel_output.cu:63:updateSynapse(int, ExponentialSynapse &, LIFNeuron *, LIFNeuron *, float)
+=========     by thread (189,0,0) in block (3906,0,0)
+=========     Address 0x7fc2a56e41b8 is out of bounds
+=========     and is 3,001 bytes after the nearest allocation at 0x7fc2a4000000 of size 24,000,000 bytes
+=========     Device Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:96:simulateSynapses(ExponentialSynapse *, LIFNeuron *, LIFNeuron *, int, float) [0x650]
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x332510]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0x1407e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:cudaLaunchKernel [0x7428e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/usr/local/cuda-12.2/bin/../targets/x86_64-linux/include/cuda_runtime.h:216:cudaError cudaLaunchKernel<char>(char const*, dim3, dim3, void**, unsigned long, CUstream_st*) [0xd906]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/tmp/tmpxft_00172d8e_00000000-6_brunel_output.cudafe1.stub.c:1:__device_stub__Z16simulateSynapsesP18ExponentialSynapseP9LIFNeuronS2_if(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd6c7]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:99:simulateSynapses(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd72d]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:312:main [0xcd39]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:../csu/libc-start.c:342:__libc_start_main [0x24083]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0xac5e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+========= 
+========= Invalid __global__ read of size 4 bytes
+=========     at 0x3e0 in /home/yangjinhao/stucture/Cplus_version/brunel_output.cu:63:updateSynapse(int, ExponentialSynapse &, LIFNeuron *, LIFNeuron *, float)
+=========     by thread (190,0,0) in block (3906,0,0)
+=========     Address 0x7fc2a56e41d0 is out of bounds
+=========     and is 3,025 bytes after the nearest allocation at 0x7fc2a4000000 of size 24,000,000 bytes
+=========     Device Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:96:simulateSynapses(ExponentialSynapse *, LIFNeuron *, LIFNeuron *, int, float) [0x650]
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x332510]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0x1407e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:cudaLaunchKernel [0x7428e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/usr/local/cuda-12.2/bin/../targets/x86_64-linux/include/cuda_runtime.h:216:cudaError cudaLaunchKernel<char>(char const*, dim3, dim3, void**, unsigned long, CUstream_st*) [0xd906]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/tmp/tmpxft_00172d8e_00000000-6_brunel_output.cudafe1.stub.c:1:__device_stub__Z16simulateSynapsesP18ExponentialSynapseP9LIFNeuronS2_if(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd6c7]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:99:simulateSynapses(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd72d]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:312:main [0xcd39]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:../csu/libc-start.c:342:__libc_start_main [0x24083]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0xac5e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+========= 
+========= Invalid __global__ read of size 4 bytes
+=========     at 0x3e0 in /home/yangjinhao/stucture/Cplus_version/brunel_output.cu:63:updateSynapse(int, ExponentialSynapse &, LIFNeuron *, LIFNeuron *, float)
+=========     by thread (191,0,0) in block (3906,0,0)
+=========     Address 0x7fc2a56e41e8 is out of bounds
+=========     and is 3,049 bytes after the nearest allocation at 0x7fc2a4000000 of size 24,000,000 bytes
+=========     Device Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:96:simulateSynapses(ExponentialSynapse *, LIFNeuron *, LIFNeuron *, int, float) [0x650]
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x332510]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0x1407e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:cudaLaunchKernel [0x7428e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/usr/local/cuda-12.2/bin/../targets/x86_64-linux/include/cuda_runtime.h:216:cudaError cudaLaunchKernel<char>(char const*, dim3, dim3, void**, unsigned long, CUstream_st*) [0xd906]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/tmp/tmpxft_00172d8e_00000000-6_brunel_output.cudafe1.stub.c:1:__device_stub__Z16simulateSynapsesP18ExponentialSynapseP9LIFNeuronS2_if(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd6c7]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:99:simulateSynapses(ExponentialSynapse*, LIFNeuron*, LIFNeuron*, int, float) [0xd72d]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:312:main [0xcd39]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:../csu/libc-start.c:342:__libc_start_main [0x24083]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0xac5e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+========= 
+========= Program hit cudaErrorLaunchFailure (error 719) due to "unspecified launch failure" on CUDA API call to cudaLaunchKernel.
+=========     Saved host backtrace up to driver entry point at error
+=========     Host Frame: [0x481c46]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:cudaLaunchKernel [0x742c8]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/usr/local/cuda-12.2/bin/../targets/x86_64-linux/include/cuda_runtime.h:216:cudaError cudaLaunchKernel<char>(char const*, dim3, dim3, void**, unsigned long, CUstream_st*) [0xd906]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/tmp/tmpxft_00172d8e_00000000-6_brunel_output.cudafe1.stub.c:14:__device_stub__Z15simulateNeuronsP9LIFNeuroniifiPfPii(LIFNeuron*, int, int, float, int, float*, int*, int) [0xd4de]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:76:simulateNeurons(LIFNeuron*, int, int, float, int, float*, int*, int) [0xd55d]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:313:main [0xce1c]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:../csu/libc-start.c:342:__libc_start_main [0x24083]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0xac5e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+========= 
+========= Program hit cudaErrorLaunchFailure (error 719) due to "unspecified launch failure" on CUDA API call to cudaLaunchKernel.
+=========     Saved host backtrace up to driver entry point at error
+=========     Host Frame: [0x481c46]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:cudaLaunchKernel [0x742c8]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/usr/local/cuda-12.2/bin/../targets/x86_64-linux/include/cuda_runtime.h:216:cudaError cudaLaunchKernel<char>(char const*, dim3, dim3, void**, unsigned long, CUstream_st*) [0xd906]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/tmp/tmpxft_00172d8e_00000000-6_brunel_output.cudafe1.stub.c:14:__device_stub__Z15simulateNeuronsP9LIFNeuroniifiPfPii(LIFNeuron*, int, int, float, int, float*, int*, int) [0xd4de]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:76:simulateNeurons(LIFNeuron*, int, int, float, int, float*, int*, int) [0xd55d]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:315:main [0xcf03]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:../csu/libc-start.c:342:__libc_start_main [0x24083]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0xac5e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+========= 
+========= Program hit cudaErrorLaunchFailure (error 719) due to "unspecified launch failure" on CUDA API call to cudaDeviceSynchronize.
+=========     Saved host backtrace up to driver entry point at error
+=========     Host Frame: [0x481c46]
+=========                in /lib/x86_64-linux-gnu/libcuda.so.1
+=========     Host Frame:cudaDeviceSynchronize [0x4c1a4]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:/home/yangjinhao/stucture/Cplus_version/brunel_output.cu:318:main [0xcf0c]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+=========     Host Frame:../csu/libc-start.c:342:__libc_start_main [0x24083]
+=========                in /lib/x86_64-linux-gnu/libc.so.6
+=========     Host Frame:_start [0xac5e]
+=========                in /home/yangjinhao/stucture/Cplus_version/./EI_net_cuda
+========= 
+CUDA error at brunel_output.cu:318 code=719(cudaErrorLaunchFailure) "cudaDeviceSynchronize()" 
+========= Target application returned an error
+========= ERROR SUMMARY: 35 errors
