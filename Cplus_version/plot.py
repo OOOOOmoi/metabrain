@@ -12,7 +12,7 @@ def read_spike_data(file_name):
 
 def plot_spike_times(spike_data, title, ylim):
     for i, spikes in enumerate(spike_data):
-        plt.plot(spikes, [i+1] * len(spikes), '.', color='blue')
+        plt.plot(spikes, [i+1] * len(spikes), '.',markersize='0.5', color='black')
     plt.title(title)
     plt.ylim(ylim)
     plt.ylabel('neuron index')
@@ -42,8 +42,8 @@ def plot_average_spike_rates(ax, spike_data, window_length_ms, title):
 window_length_ms = 5
 
 # 读取数据
-group_1_data = read_spike_data('I_spike_times.txt')
-group_2_data = read_spike_data('E_spike_times.txt')
+group_1_data = read_spike_data('/home/yangjinhao/stucture/Cplus_version/exc_spike_times.txt')
+group_2_data = read_spike_data('/home/yangjinhao/stucture/Cplus_version/inh_spike_times.txt')
 
 # 创建子图
 fig, axs = plt.subplots(2, 2, figsize=(15, 10), sharex='col', sharey='row')
@@ -63,4 +63,4 @@ for ax_row in axs:
         ax.autoscale(axis='y')
 
 plt.tight_layout()
-plt.savefig("EItest.png")
+plt.savefig("/home/yangjinhao/stucture/Cplus_version/EItest.png")
