@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cuda_runtime.h>
-#include "/home/yangjinhao/enlarge-backup/enlarge-input-myself/src/third_party/cuda/helper_cuda.h"
+// #include "/home/yangjinhao/enlarge-backup/enlarge-input-myself/src/third_party/cuda/helper_cuda.h"
 #include <random>
 #include <chrono>
 #include <vector>
@@ -27,67 +27,66 @@ struct ExponentialSynapse {
     thrust::device_vector<float> s;  // 突触的状态
 };
 
-__global__ void simulateNeuronsFixpara(LIFNeuron *neurons, int num_neurons, int input, float dt, float* spike_times, int* spike_counts, int time_step){
+__global__ void simulateNeuronsFixpara(float* iSyn, bool* Spike, float* Ref, float* Potential, \
+                                        int num_neurons, int input, float dt, float* spike_times, \
+                                        int* spike_counts, int time_step){
     int tid=blockIdx.x*blockDim.x+threadIdx.x;
     if(tid<num_neurons){
-        atomicAdd(&neurons[tid].input_current,input);
-        neurons[tid].spiked = false;
-        if (neurons[tid].refractory_time > 0) {
-            neurons[tid].refractory_time -= dt;
-            neurons[tid].V = -60.0;//reset voltage
+        iSyn[tid]+=input;
+        Spike[tid] = false;
+        if (Ref[tid] > 0) {
+            Ref[tid] -= dt;
+            Potential[tid] = -60.0;//reset voltage
         } else {
             //V_inf=E_L+RI;
             //V=V+dt*(V_inf-V)/tau_m
             //ouler
-            float V_inf = -60.0 + 1.0 * neurons[tid].input_current;//EL
-            neurons[tid].V += dt * (V_inf - neurons[tid].V) / 20.0;//tau_m
-            if (neurons[tid].V >= -50.0) {//V_th
-                neurons[tid].spiked = true;
-                neurons[tid].V = -60.0;//V_reset
-                neurons[tid].refractory_time = 5.0;//tau_ref
+            float V_inf = -60.0 + 1.0 * iSyn[tid];//EL
+            Potential[tid] += dt * (V_inf - Potential[tid]) / 20.0;//tau_m
+            if (Potential[tid] >= -50.0) {//V_th
+                Spike[tid] = true;
+                Potential[tid] = -60.0;//V_reset
+                Ref[tid] = 5.0;//tau_ref
             }
         }
-        neurons[tid].input_current = 0;  // 重置输入电流为下一时间步准备
-        if (neurons[tid].spiked) {
+        iSyn[tid] = 0;  // 重置输入电流为下一时间步准备
+        if (Spike[tid]) {
             int temp = atomicAdd(&spike_counts[tid], 1);
             spike_times[tid * MAX_SPIKES + temp] = time_step * dt;
         }
     }
 }
 
-__global__ void simulateSynapsesFixparaAmpa(ExponentialSynapse *synapses, LIFNeuron *preneurons, LIFNeuron *postneurons, int num_synapses, float dt){
+__global__ void simulateSynapsesFixparaAmpa(float* state, int* Pre, int* Post, bool* pre_spike, \
+                                            float* post_input, float* post_V, int num_synapses, float dt){
     int tid = blockIdx.x * blockDim.x + threadIdx.x; // 当前thread的索引
     if (tid < num_synapses) {
-        LIFNeuron *pre_neuron = &preneurons[synapses[tid].pre];
-        LIFNeuron *post_neuron = &postneurons[synapses[tid].post];
-        if (pre_neuron->spiked) {
-            synapses[tid].s += 1.0;  // 突触前神经元发放动作电位，s增加
+        if (pre_spike[Pre[tid]]) {
+            state[tid] += 1.0;  // 突触前神经元发放动作电位，s增加
         }
-        synapses[tid].s -= synapses[tid].s / 5.0 * dt;  // s的指数衰减,tau
-        float g_exp = 0.3 * synapses[tid].s;//g_max
-        float I_syn = g_exp * (0.0 - post_neuron->V);  // 计算突触电流,EL
-        atomicAdd(&post_neuron->input_current, I_syn);  // 原子加，以避免并发写入问题
+        state[tid] -= state[tid] / 5.0 * dt;  // s的指数衰减,tau
+        float g_exp = 0.3 * state[tid];//g_max
+        float I_syn = g_exp * (0.0 - post_V[Post[tid]]);  // 计算突触电流,EL
+        atomicAdd(&post_input[Post[tid]], I_syn);  // 原子加，以避免并发写入问题
+        // postneurons->input_current[synapses->post[tid]]+=I_syn;
     }
 }
 
-__global__ void simulateSynapsesFixparaGaba(ExponentialSynapse *synapses, LIFNeuron *preneurons, LIFNeuron *postneurons, int num_synapses, float dt){
+__global__ void simulateSynapsesFixparaGaba(float* state, int* Pre, int* Post, bool* pre_spike, \
+                                            float* post_input, float* post_V, int num_synapses, float dt){
     int tid = blockIdx.x * blockDim.x + threadIdx.x; // 当前thread的索引
     if (tid < num_synapses) {
-        LIFNeuron *pre_neuron = &preneurons[synapses[tid].pre];
-        LIFNeuron *post_neuron = &postneurons[synapses[tid].post];
-        if (pre_neuron->spiked) {
-            synapses[tid].s += 1.0;  // 突触前神经元发放动作电位，s增加
+        if (pre_spike[Pre[tid]]) {
+            state[tid] += 1.0;  // 突触前神经元发放动作电位，s增加
         }
-        synapses[tid].s -= synapses[tid].s / 10.0 * dt;  // s的指数衰减,tau
-        float g_exp = 3.2 * synapses[tid].s;//g_max
-        float I_syn = g_exp * (-80 - post_neuron->V);  // 计算突触电流,EL
-        atomicAdd(&post_neuron->input_current, I_syn);  // 原子加，以避免并发写入问题
+        state[tid] -= state[tid] / 10.0 * dt;  // s的指数衰减,tau
+        float g_exp = 3.2 * state[tid];//g_max
+        float I_syn = g_exp * (-80.0 - post_V[Post[tid]]);  // 计算突触电流,EL
+        atomicAdd(&post_input[Post[tid]], I_syn);  // 原子加，以避免并发写入问题
+        // postneurons->input_current[synapses->post[tid]]+=I_syn;
     }
 }
 
-__global__ void InitSynapse(){
-
-}
 
 int save_spike(int* h_spike_counts_exc, float* h_spike_times_exc, int* h_spike_counts_inh, float* h_spike_times_inh, int numExc, int numInh) {
     FILE* exc_spike_file = fopen("exc_spike_times.txt", "w");
@@ -117,38 +116,46 @@ int main() {
     float connect_prob = 0.02;
     float dt = 0.1;
     int steps = 10000;
-    std::default_random_engine generator;
+    std::default_random_engine generator(static_cast<unsigned int>(std::time(0)));
     //定义神经元群和突触连接
-    struct LIFNeuron *PopExc;
-    struct LIFNeuron *d_PopExc;
-    struct LIFNeuron *PopInh;
-    struct LIFNeuron *d_PopInh;
+    // LIFNeuron *PopExc;
+    LIFNeuron *d_PopExc;
+    // LIFNeuron *PopInh;
+    LIFNeuron *d_PopInh;
 
     // 初始化神经元参数
     auto start_init_neuron = high_resolution_clock::now();
-    PopExc->V.resize(numExc);
-    PopExc->refractory_time = vector<float>(numExc,0.0);
-    PopExc->input_current = vector<float>(numExc,0.0);
-    PopExc->spiked = vector<bool>(numExc,false);
+    d_PopExc->V.resize(numExc,-60.0);
+    d_PopExc->refractory_time.resize(numExc,0.0);
+    d_PopExc->input_current.resize(numExc,0.0);
+    d_PopExc->spiked.resize(numExc,false);
+    float* PopExc_V_ptr=d_PopExc->V.data().get();
+    float* PopExc_Ref_ptr=d_PopExc->refractory_time.data().get();
+    float* PopExc_iSyn_ptr=d_PopExc->input_current.data().get();
+    bool* PopExc_Spike_ptr=d_PopExc->spiked.data().get();
 
-    PopInh->V = vector<float>(numInh,-60.0);
-    PopInh->refractory_time = vector<float>(numInh,0.0);
-    PopInh->input_current = vector<float>(numInh,0.0);
-    PopInh->spiked = vector<bool>(numInh,false);
-
+    d_PopInh->V.resize(numInh,-60.0);
+    d_PopInh->refractory_time.resize(numInh,0.0);
+    d_PopInh->input_current.resize(numInh,0.0);
+    d_PopInh->spiked.resize(numInh,false);
+    float* PopInh_V_ptr=d_PopInh->V.data().get();
+    float* PopInh_Ref_ptr=d_PopInh->refractory_time.data().get();
+    float* PopInh_iSyn_ptr=d_PopInh->input_current.data().get();
+    bool* PopInh_Spike_ptr=d_PopInh->spiked.data().get();
+    
     //
 
     auto end_init_neuron = high_resolution_clock::now();
     auto duration = duration_cast<milliseconds>(end_init_neuron - start_init_neuron);
     cout << "neurons initTime: " << duration.count() << " ms" << endl;
 
-    vector<ExponentialSynapse> Exc2ExcSyn_AMPA;
+    // ExponentialSynapse* Exc2ExcSyn_AMPA;
     ExponentialSynapse *d_Exc2ExcSyn_AMPA;
-    vector<ExponentialSynapse> Exc2InhSyn_AMPA;
+    // ExponentialSynapse* Exc2InhSyn_AMPA;
     ExponentialSynapse *d_Exc2InhSyn_AMPA;
-    vector<ExponentialSynapse> Inh2ExcSyn_GABA;
+    // ExponentialSynapse* Inh2ExcSyn_GABA;
     ExponentialSynapse *d_Inh2ExcSyn_GABA;
-    vector<ExponentialSynapse> Inh2InhSyn_GABA;
+    // ExponentialSynapse* Inh2InhSyn_GABA;
     ExponentialSynapse *d_Inh2InhSyn_GABA;
 
     auto start_init = high_resolution_clock::now();
@@ -159,81 +166,85 @@ int main() {
     for (int i = 0; i < numExc; i++) {
         for (int j = 0; j < numExc; j++) {
             if (dis(generator) < connect_prob) {
-                ExponentialSynapse syn;
-                syn.pre = i;
-                syn.post = j;
-                syn.s = 0;
-                Exc2ExcSyn_AMPA.push_back(syn);
+                d_Exc2ExcSyn_AMPA->pre.push_back(i);
+                d_Exc2ExcSyn_AMPA->post.push_back(j);
+                d_Exc2ExcSyn_AMPA->s.push_back(0.0);
                 counter++;
             }
         }
     }
     int numExc2Exc = counter;
+    float* E2E_state_ptr=d_Exc2ExcSyn_AMPA->s.data().get();
+    int* E2E_PreIdx_ptr=d_Exc2ExcSyn_AMPA->pre.data().get();
+    int* E2E_PostIdx_ptr=d_Exc2ExcSyn_AMPA->post.data().get();
+    bool* E2E_pre_spike_ptr=d_PopExc->spiked.data().get();
+    float* E2E_post_input_ptr=d_PopExc->input_current.data().get();
+    float* E2E_post_V_ptr=d_PopExc->V.data().get();
+
 
     counter = 0;
     for (int i = 0; i < numExc; i++) {
         for (int j = 0; j < numInh; j++) {
             if (dis(generator) < connect_prob) {
-                ExponentialSynapse syn;
-                syn.pre = i;
-                syn.post = j;
-                syn.s = 0;
-                Exc2InhSyn_AMPA.push_back(syn);
+                d_Exc2InhSyn_AMPA->pre.push_back(i);
+                d_Exc2InhSyn_AMPA->post.push_back(j);
+                d_Exc2InhSyn_AMPA->s.push_back(0.0);
                 counter++;
             }
         }
     }
     int numExc2Inh = counter;
+    float* E2I_state_ptr=d_Exc2InhSyn_AMPA->s.data().get();
+    int* E2I_PreIdx_ptr=d_Exc2InhSyn_AMPA->pre.data().get();
+    int* E2I_PostIdx_ptr=d_Exc2InhSyn_AMPA->post.data().get();
+    bool* E2I_pre_spike_ptr=d_PopExc->spiked.data().get();
+    float* E2I_post_input_ptr=d_PopInh->input_current.data().get();
+    float* E2I_post_V_ptr=d_PopInh->V.data().get();
 
     counter = 0;
     for (int i = 0; i < numInh; i++) {
         for (int j = 0; j < numExc; j++) {
             if (dis(generator) < connect_prob) {
-                ExponentialSynapse syn;
-                syn.pre = i;
-                syn.post = j;
-                syn.s = 0;
-                Inh2ExcSyn_GABA.push_back(syn);
+                d_Inh2ExcSyn_GABA->pre.push_back(i);
+                d_Inh2ExcSyn_GABA->post.push_back(j);
+                d_Inh2ExcSyn_GABA->s.push_back(0.0);
                 counter++;
             }
         }
     }
     int numInh2Exc = counter;
+    float* I2E_state_ptr=d_Inh2ExcSyn_GABA->s.data().get();
+    int* I2E_PreIdx_ptr=d_Inh2ExcSyn_GABA->pre.data().get();
+    int* I2E_PostIdx_ptr=d_Inh2ExcSyn_GABA->post.data().get();
+    bool* I2E_pre_spike_ptr=d_PopInh->spiked.data().get();
+    float* I2E_post_input_ptr=d_PopExc->input_current.data().get();
+    float* I2E_post_V_ptr=d_PopExc->V.data().get();
+
 
     counter = 0;
     for (int i = 0; i < numInh; i++) {
         for (int j = 0; j < numInh; j++) {
             if (dis(generator) < connect_prob) {
-                ExponentialSynapse syn;
-                syn.pre = i;
-                syn.post = j;
-                syn.s = 0;
-                Inh2InhSyn_GABA.push_back(syn);
+                d_Inh2InhSyn_GABA->pre.push_back(i);
+                d_Inh2InhSyn_GABA->post.push_back(j);
+                d_Inh2InhSyn_GABA->s.push_back(0.0);
                 counter++;
             }
         }
     }
     int numInh2Inh = counter;
+    float* I2I_state_ptr=d_Inh2InhSyn_GABA->s.data().get();
+    int* I2I_PreIdx_ptr=d_Inh2InhSyn_GABA->pre.data().get();
+    int* I2I_PostIdx_ptr=d_Inh2InhSyn_GABA->post.data().get();
+    bool* I2I_pre_spike_ptr=d_PopInh->spiked.data().get();
+    float* I2I_post_input_ptr=d_PopInh->input_current.data().get();
+    float* I2I_post_V_ptr=d_PopInh->V.data().get();
 
     auto end_init = high_resolution_clock::now();
-    auto duration = duration_cast<milliseconds>(end_init - start_init);
+    duration = duration_cast<milliseconds>(end_init - start_init);
     cout << "initTime: " << duration.count() << " ms" << endl;
 
     // 初始化GPU变量
-    cudaMalloc(&d_PopExc, numExc * sizeof(LIFNeuron));
-    cudaMalloc(&d_PopInh, numInh * sizeof(LIFNeuron));
-    cudaMemcpy(d_PopExc, PopExc, numExc * sizeof(LIFNeuron), cudaMemcpyHostToDevice);
-    cudaMemcpy(d_PopInh, PopInh, numInh * sizeof(LIFNeuron), cudaMemcpyHostToDevice);
-
-    cudaMalloc(&d_Exc2ExcSyn_AMPA, numExc2Exc * sizeof(ExponentialSynapse));
-    cudaMalloc(&d_Exc2InhSyn_AMPA, numExc2Inh * sizeof(ExponentialSynapse));
-    cudaMalloc(&d_Inh2ExcSyn_GABA, numInh2Exc * sizeof(ExponentialSynapse));
-    cudaMalloc(&d_Inh2InhSyn_GABA, numInh2Inh * sizeof(ExponentialSynapse));
-    cudaMemcpy(d_Exc2ExcSyn_AMPA, Exc2ExcSyn_AMPA.data(), numExc2Exc * sizeof(ExponentialSynapse), cudaMemcpyHostToDevice);
-    cudaMemcpy(d_Exc2InhSyn_AMPA, Exc2InhSyn_AMPA.data(), numExc2Inh * sizeof(ExponentialSynapse), cudaMemcpyHostToDevice);
-    cudaMemcpy(d_Inh2ExcSyn_GABA, Inh2ExcSyn_GABA.data(), numInh2Exc * sizeof(ExponentialSynapse), cudaMemcpyHostToDevice);
-    cudaMemcpy(d_Inh2InhSyn_GABA, Inh2InhSyn_GABA.data(), numInh2Inh * sizeof(ExponentialSynapse), cudaMemcpyHostToDevice);
-
     float *d_spike_times_exc, *d_spike_times_inh;
     int *d_spike_counts_exc, *d_spike_counts_inh;
     cudaMalloc(&d_spike_times_exc, numExc * MAX_SPIKES * sizeof(float));
@@ -268,14 +279,14 @@ int main() {
     float input = 12.0;
     for (int t = 0; t < steps; t++) {
         // int input = (sin(2 * 3.1415 * t / freq) + 1) * 10;
-        simulateNeuronsFixpara<<<blocksPerGridExc, threadsPerBlock>>>(d_PopExc, numExc, input, dt, d_spike_times_exc, d_spike_counts_exc, t);
-        simulateNeuronsFixpara<<<blocksPerGridInh, threadsPerBlock>>>(d_PopInh, numInh, input, dt, d_spike_times_inh, d_spike_counts_inh, t);
+        simulateNeuronsFixpara<<<blocksPerGridExc, threadsPerBlock>>>(PopExc_iSyn_ptr, PopExc_Spike_ptr, PopExc_Ref_ptr, PopExc_V_ptr, numExc, input, dt, d_spike_times_exc, d_spike_counts_exc, t);
+        simulateNeuronsFixpara<<<blocksPerGridInh, threadsPerBlock>>>(PopInh_iSyn_ptr, PopInh_Spike_ptr, PopInh_Ref_ptr, PopInh_V_ptr, numInh, input, dt, d_spike_times_inh, d_spike_counts_inh, t);
         cudaDeviceSynchronize();
 
-        simulateSynapsesFixparaAmpa<<<blocksPerGridExc2Exc, threadsPerBlock>>>(d_Exc2ExcSyn_AMPA, d_PopExc, d_PopExc, numExc2Exc, dt);
-        simulateSynapsesFixparaAmpa<<<blocksPerGridExc2Inh, threadsPerBlock>>>(d_Exc2InhSyn_AMPA, d_PopExc, d_PopInh, numExc2Inh, dt);
-        simulateSynapsesFixparaGaba<<<blocksPerGridInh2Exc, threadsPerBlock>>>(d_Inh2ExcSyn_GABA, d_PopInh, d_PopExc, numInh2Exc, dt);
-        simulateSynapsesFixparaGaba<<<blocksPerGridInh2Inh, threadsPerBlock>>>(d_Inh2InhSyn_GABA, d_PopInh, d_PopInh, numInh2Inh, dt);
+        simulateSynapsesFixparaAmpa<<<blocksPerGridExc2Exc, threadsPerBlock>>>(E2E_state_ptr, E2E_PreIdx_ptr, E2E_PostIdx_ptr,E2E_pre_spike_ptr,E2E_post_input_ptr, E2E_post_V_ptr, numExc2Exc, dt);
+        simulateSynapsesFixparaAmpa<<<blocksPerGridExc2Inh, threadsPerBlock>>>(E2I_state_ptr, E2I_PreIdx_ptr, E2I_PostIdx_ptr,E2I_pre_spike_ptr,E2I_post_input_ptr, E2I_post_V_ptr, numExc2Inh, dt);
+        simulateSynapsesFixparaGaba<<<blocksPerGridInh2Exc, threadsPerBlock>>>(I2E_state_ptr, I2E_PreIdx_ptr, I2E_PostIdx_ptr,I2E_pre_spike_ptr,I2E_post_input_ptr, I2E_post_V_ptr, numInh2Exc, dt);
+        simulateSynapsesFixparaGaba<<<blocksPerGridInh2Inh, threadsPerBlock>>>(I2I_state_ptr, I2I_PreIdx_ptr, I2I_PostIdx_ptr,I2I_pre_spike_ptr,I2I_post_input_ptr, I2I_post_V_ptr, numInh2Inh, dt);
         cudaDeviceSynchronize();
     }
     cudaEventRecord(stop);
@@ -296,8 +307,8 @@ int main() {
     save_spike(h_spike_counts_exc,h_spike_times_exc,h_spike_counts_inh,h_spike_times_inh,numExc,numInh);
     
     // 释放内存
-    delete[] PopExc;
-    delete[] PopInh;
+    // delete[] PopExc;
+    // delete[] PopInh;
     // delete[] Exc2ExcSyn_AMPA;
     // delete[] Exc2InhSyn_AMPA;
     // delete[] Inh2ExcSyn_GABA;
@@ -307,12 +318,12 @@ int main() {
     delete[] h_spike_counts_exc;
     delete[] h_spike_counts_inh;
 
-    cudaFree(d_PopExc);
-    cudaFree(d_PopInh);
-    cudaFree(d_Exc2ExcSyn_AMPA);
-    cudaFree(d_Exc2InhSyn_AMPA);
-    cudaFree(d_Inh2ExcSyn_GABA);
-    cudaFree(d_Inh2InhSyn_GABA);
+    // cudaFree(d_PopExc);
+    // cudaFree(d_PopInh);
+    // cudaFree(d_Exc2ExcSyn_AMPA);
+    // cudaFree(d_Exc2InhSyn_AMPA);
+    // cudaFree(d_Inh2ExcSyn_GABA);
+    // cudaFree(d_Inh2InhSyn_GABA);
     cudaFree(d_spike_times_exc);
     cudaFree(d_spike_times_inh);
     cudaFree(d_spike_counts_exc);
