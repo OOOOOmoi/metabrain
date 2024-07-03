@@ -1,6 +1,5 @@
 #include <iostream>
 #include <cuda_runtime.h>
-// #include "/home/yangjinhao/enlarge-backup/enlarge-input-myself/src/third_party/cuda/helper_cuda.h"
 #include <random>
 #include <chrono>
 #include <vector>
@@ -119,15 +118,14 @@ int main() {
         float input_current[numExc];
         int spiked[numExc];
     };
-    LIFNeuronExc *PopExc;
+    LIFNeuronExc PopExc;
     LIFNeuronExc *d_PopExc;
-    fill_n(PopExcV,numExc,-60.0);
-    fill_n(PopExcRef,numExc,0.0);
-    fill_n(PopExcIsyn,numExc,0.0);
-    fill_n(PopExcSpike,numExc,0);
-    copy()
-    cudaMalloc(&d_PopExc,sizeof(PopExc));
-    cudaMemcpy(d_PopExc,PopExc,sizeof(PopExc),cudaMemcpyHostToDevice);
+    fill_n(PopExc.V,numExc,-60.0);
+    fill_n(PopExc.refractory_time,numExc,0.0);
+    fill_n(PopExc.input_current,numExc,0.0);
+    fill_n(PopExc.spiked,numExc,0);
+    cudaMalloc(&d_PopExc,sizeof(LIFNeuronExc)*numExc);
+    cudaMemcpy(d_PopExc,&PopExc,sizeof(LIFNeuronExc)*numExc,cudaMemcpyHostToDevice);
 
     struct LIFNeuronInh {
         float V[numInh];
@@ -135,38 +133,14 @@ int main() {
         float input_current[numInh];
         int spiked[numInh];
     };
-    LIFNeuronInh *PopInh;
+    LIFNeuronInh PopInh;
     LIFNeuronInh *d_PopInh;
-    float PopInhV[numInh],PopInhRef[numInh],PopInhIsyn[numInh];
-    int PopInhSpike[numInh];
-    fill_n(PopInhV,numInh,-60.0);
-    fill_n(PopInhRef,numInh,0.0);
-    fill_n(PopInhIsyn,numInh,0.0);
-    fill_n(PopInhSpike,numInh,0);
-    copy()
-    cudaMalloc(&d_PopInh,sizeof(PopInh));
-    cudaMemcpy(d_PopInh,PopInh,sizeof(PopInh),cudaMemcpyHostToDevice);
-    // 初始化神经元参数
-    
-    d_PopExc->V.resize(numExc,-60.0);
-    d_PopExc->refractory_time.resize(numExc,0.0);
-    d_PopExc->input_current.resize(numExc,0.0);
-    d_PopExc->spiked.resize(numExc,false);
-    float* PopExc_V_ptr=d_PopExc->V.data().get();
-    float* PopExc_Ref_ptr=d_PopExc->refractory_time.data().get();
-    float* PopExc_iSyn_ptr=d_PopExc->input_current.data().get();
-    bool* PopExc_Spike_ptr=d_PopExc->spiked.data().get();
-
-    d_PopInh->V.resize(numInh,-60.0);
-    d_PopInh->refractory_time.resize(numInh,0.0);
-    d_PopInh->input_current.resize(numInh,0.0);
-    d_PopInh->spiked.resize(numInh,false);
-    float* PopInh_V_ptr=d_PopInh->V.data().get();
-    float* PopInh_Ref_ptr=d_PopInh->refractory_time.data().get();
-    float* PopInh_iSyn_ptr=d_PopInh->input_current.data().get();
-    bool* PopInh_Spike_ptr=d_PopInh->spiked.data().get();
-    
-    //
+    fill_n(PopInh.V,numInh,-60.0);
+    fill_n(PopInh.refractory_time,numInh,0.0);
+    fill_n(PopInh.input_current,numInh,0.0);
+    fill_n(PopInh.spiked,numInh,0);
+    cudaMalloc(&d_PopInh,sizeof(LIFNeuronInh)*numInh);
+    cudaMemcpy(d_PopInh,&PopInh,sizeof(LIFNeuronInh)*numInh,cudaMemcpyHostToDevice);
 
     auto end_init_neuron = high_resolution_clock::now();
     auto duration = duration_cast<milliseconds>(end_init_neuron - start_init_neuron);
