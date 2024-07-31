@@ -6,7 +6,8 @@
 #include <time.h>
 #include <fstream>
 #include <stdlib.h>
-#include "/home/yangjinhao/enlarge-backup/enlarge-input-myself/src/third_party/cuda/helper_cuda.h"
+#include "/home/yangjinhao/enlarge-backup/enlarge-develop/src/third_party/cuda/helper_cuda.h"
+#include "/home/yangjinhao/CUDA_Freshman-master/include/freshman.h"
 using namespace std;
 using namespace std::chrono;
 
@@ -54,6 +55,9 @@ void initNeurons(LIFNeuron* data,int num,LIFData para){
 }
 
 void* cudaAllocNeurons(LIFNeuron* data, int num){
+    LIFNeuron* D_data=NULL;
+    checkCudaErrors(cudaMalloc(&D_data,sizeof(LIFNeuron)));
+    checkCudaErrors(cudaMemset(D_data,0,sizeof(LIFNeuron)));
     LIFNeuron* d_data=(LIFNeuron*)malloc(sizeof(LIFNeuron));
     memset(d_data,0,sizeof(LIFNeuron));
 
@@ -65,7 +69,9 @@ void* cudaAllocNeurons(LIFNeuron* data, int num){
     checkCudaErrors(cudaMemcpy(d_data->input_current,&data->input_current,sizeof(float)*num,cudaMemcpyHostToDevice));
     checkCudaErrors(cudaMalloc(&d_data->spiked,sizeof(float)*num));
     checkCudaErrors(cudaMemcpy(d_data->spiked,&data->spiked,sizeof(float)*num,cudaMemcpyHostToDevice));
-    return d_data;
+    checkCudaErrors(cudaMemcpy(D_data,d_data,sizeof(LIFNeuron),cudaMemcpyHostToDevice));
+    free(d_data);
+    return D_data;
 }
 
 void FreeNeuron(LIFNeuron* data){
@@ -81,7 +87,7 @@ void cudaFreeNeurons(LIFNeuron* d_data) {
     cudaFree(d_data->refractory_time);
     cudaFree(d_data->input_current);
     cudaFree(d_data->spiked);
-    free(d_data); // 释放 d_data 本身
+    cudaFree(d_data); // 释放 d_data 本身
 }
 
 int initSynapse(ExponentialSynapseHOST* data,int numPre,int numPost,float connect_prob){
@@ -102,6 +108,9 @@ int initSynapse(ExponentialSynapseHOST* data,int numPre,int numPost,float connec
 }
 
 void* cudaAllocSynapse(ExponentialSynapseHOST* data,int num){
+    ExponentialSynapse* D_data=NULL;
+    checkCudaErrors(cudaMalloc(&D_data,sizeof(ExponentialSynapse)));
+    checkCudaErrors(cudaMemset(D_data,0,sizeof(ExponentialSynapse)));
     ExponentialSynapse* d_data=(ExponentialSynapse*)malloc(sizeof(ExponentialSynapse));
     memset(d_data,0,sizeof(ExponentialSynapse));
     
@@ -111,7 +120,9 @@ void* cudaAllocSynapse(ExponentialSynapseHOST* data,int num){
     cudaMemcpy(d_data->post,data->post.data(),sizeof(int)*num,cudaMemcpyHostToDevice);
     cudaMalloc(&d_data->s,sizeof(float)*num);
     cudaMemcpy(d_data->s,data->s.data(),sizeof(float)*num,cudaMemcpyHostToDevice);
-    return d_data;
+    checkCudaErrors(cudaMemcpy(D_data,d_data,sizeof(ExponentialSynapse),cudaMemcpyHostToDevice));
+    free(d_data);
+    return D_data;
 }
 
 void cudaFreeSynapse(ExponentialSynapse* d_data) {
@@ -123,6 +134,9 @@ void cudaFreeSynapse(ExponentialSynapse* d_data) {
 
 __global__ void simulateNeuronsFixpara(LIFNeuron* group, int num_neurons, int input, float dt, float* spike_times, int* spike_counts, int time_step){
     int tid=blockIdx.x*blockDim.x+threadIdx.x;
+    // if(tid==0){
+    //     printf("Time: %f",time_step*dt);
+    // }
     if(tid<num_neurons){
         group->input_current[tid]+=input;
         group->spiked[tid] = 0;
@@ -277,11 +291,7 @@ int main() {
     int blocksPerGridInh2Inh = (numInh2Inh + threadsPerBlock - 1) / threadsPerBlock;
 
     // 运行模拟
-    cudaEvent_t start, stop;
-    cudaEventCreate(&start);
-    cudaEventCreate(&stop);
-
-    cudaEventRecord(start);
+    double start=cpuSecond();
     float input = 12.0;
     for (int t = 0; t < steps; t++) {
         simulateNeuronsFixpara<<<blocksPerGridExc, threadsPerBlock>>>(d_PopExc, numExc, input, dt, d_spike_times_exc, d_spike_counts_exc, t);
@@ -294,22 +304,16 @@ int main() {
         simulateSynapsesFixparaGaba<<<blocksPerGridInh2Inh, threadsPerBlock>>>(d_Inh2InhSyn_GABA,d_PopInh,d_PopInh, numInh2Inh, dt);
         cudaDeviceSynchronize();
     }
-    cudaEventRecord(stop);
-    cudaEventSynchronize(stop);
+    double isElaps=cpuSecond()-start;
+    printf("Time of Simulation: %fms\n",1000*isElaps);
 
-    float milliseconds = 0;
-    cudaEventElapsedTime(&milliseconds, start, stop);
-    std::cout << "Execution time: " << milliseconds << " ms\n";
-
-    cudaEventDestroy(start);
-    cudaEventDestroy(stop);
 
     cudaMemcpy(h_spike_times_exc, d_spike_times_exc, numExc * MAX_SPIKES * sizeof(float), cudaMemcpyDeviceToHost);
     cudaMemcpy(h_spike_times_inh, d_spike_times_inh, numInh * MAX_SPIKES * sizeof(float), cudaMemcpyDeviceToHost);
     cudaMemcpy(h_spike_counts_exc, d_spike_counts_exc, numExc * sizeof(int), cudaMemcpyDeviceToHost);
     cudaMemcpy(h_spike_counts_inh, d_spike_counts_inh, numInh * sizeof(int), cudaMemcpyDeviceToHost);
 
-    // save_spike(h_spike_counts_exc,h_spike_times_exc,h_spike_counts_inh,h_spike_times_inh,numExc,numInh);
+    save_spike(h_spike_counts_exc,h_spike_times_exc,h_spike_counts_inh,h_spike_times_inh,numExc,numInh);
     
     // 释放内存
     FreeNeuron(PopExc);

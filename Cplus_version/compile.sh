@@ -3,6 +3,11 @@
 # 源文件名
 source_file="$1"
 
+# 输出文件名
+input_file1="ESpikeTimesMT.txt"
+input_file2="ISpikeTimesMT.txt"
+output_file="EInetMT.png"
+
 # 编译文件名（去除扩展名）
 compiled_file="${source_file%.*}"
 
@@ -16,9 +21,9 @@ g++ -o "${executable_path}" "${source_file}" -lpthread
 if [ $? -eq 0 ]; then
     echo "Compilation successful. Executable file: ${executable_path}"
     # 运行可执行文件
-    ./"${executable_path}"
+    ./"${executable_path}" "${input_file1}" "${input_file2}"
     # 执行 Python 文件
-    python plot.py
+    python plot.py --exc_file "${input_file1}" --inh_file "${input_file2}" --output_file "${output_file}"
 else
     echo "Compilation failed."
 fi

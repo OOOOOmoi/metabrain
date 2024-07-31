@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import argparse
 
 def read_spike_data(file_name):
     spike_data = []
@@ -38,12 +39,21 @@ def plot_average_spike_rates(ax, spike_data, window_length_ms, title):
     ax.set_ylabel('Average Spike Rate (Hz)')
     ax.tick_params(axis='y', which='both', labelleft=True, labelright=False)
 
+
+parser = argparse.ArgumentParser(description='Plot spike times and average spike rates.')
+parser.add_argument('--exc_file', type=str, required=True, help='Path to the excitatory neuron spike times file')
+parser.add_argument('--inh_file', type=str, required=True, help='Path to the inhibitory neuron spike times file')
+parser.add_argument('--output_file', type=str, required=True, help='Path to save the output plot')
+# parser.add_argument('--window_length_ms', type=float, default=10.0, help='Window length in ms for calculating spike rates')
+
+args = parser.parse_args()
+
 # 设置窗口大小
 window_length_ms = 5
 
 # 读取数据
-group_1_data = read_spike_data('/home/yangjinhao/stucture/Cplus_version/exc_spike_times.txt')
-group_2_data = read_spike_data('/home/yangjinhao/stucture/Cplus_version/inh_spike_times.txt')
+group_1_data = read_spike_data(args.exc_file)
+group_2_data = read_spike_data(args.inh_file)
 
 # 创建子图
 fig, axs = plt.subplots(2, 2, figsize=(15, 10), sharex='col', sharey='row')
@@ -63,4 +73,4 @@ for ax_row in axs:
         ax.autoscale(axis='y')
 
 plt.tight_layout()
-plt.savefig("/home/yangjinhao/stucture/Cplus_version/EItest.png")
+plt.savefig(args.output_file)

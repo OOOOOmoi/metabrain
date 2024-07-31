@@ -10,8 +10,7 @@
 using namespace std;
 using namespace std::chrono;
 
-const string E_spike_file = "E_spike_times.txt";
-const string I_spike_file = "I_spike_times.txt";
+
 
 class EInet{
     public:
@@ -27,8 +26,8 @@ class EInet{
     float E_GABA=-80.0;
     float dt=0.1;
     float fixprob=0.02;
-    int numE=20000;
-    int numI=5000;
+    int numE=4000;
+    int numI=1000;
     
     vector<LIFNeuron> groupE;
     vector<LIFNeuron> groupI;
@@ -122,7 +121,7 @@ class EInet{
             }
         }
     }
-    void saveSpikeTimes() {
+    void saveSpikeTimes(string E_spike_file,string I_spike_file) {
         ofstream E_spike_out(E_spike_file);
         ofstream I_spike_out(I_spike_file);
         if (E_spike_out.is_open() && I_spike_out.is_open()) {
@@ -189,7 +188,9 @@ void* updateSynapse(void* arg){
     return NULL;
 }
 
-int main() {
+int main(int argc, char* argv[]) {
+    string E_spike_file = argv[1];
+    string I_spike_file = argv[2];
     srand(time(0));
     float dt=0.1;
     float currentTime=0.0;
@@ -244,7 +245,7 @@ int main() {
     auto end_stim = high_resolution_clock::now();
     auto duration_stim = duration_cast<milliseconds>(end_stim - start_stim);
     cout << "stimuTime: " << duration_stim.count() << " ms" << endl;
-    net.saveSpikeTimes();
+    net.saveSpikeTimes(E_spike_file,I_spike_file);
 
     return 0;
 }

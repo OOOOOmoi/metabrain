@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cuda_runtime.h>
-#include "/home/yangjinhao/enlarge-backup/enlarge-input-myself/src/third_party/cuda/helper_cuda.h"
+// #include "/home/yangjinhao/enlarge-backup/enlarge-input-myself/src/third_party/cuda/helper_cuda.h"
 #include <random>
 #include <chrono>
 #include <vector>
@@ -83,8 +83,8 @@ __global__ void simulateSynapsesFixparaGaba(ExponentialSynapse *synapses, LIFNeu
     }
 }
 
-int save_spike(int* h_spike_counts_exc, float* h_spike_times_exc, int* h_spike_counts_inh, float* h_spike_times_inh, int numExc, int numInh) {
-    FILE* exc_spike_file = fopen("exc_spike_times.txt", "w");
+int save_spike(const char* ESpikeFile,const char* ISpikeFile,int* h_spike_counts_exc, float* h_spike_times_exc, int* h_spike_counts_inh, float* h_spike_times_inh, int numExc, int numInh) {
+    FILE* exc_spike_file = fopen(ESpikeFile, "w");
     for (int i = 0; i < numExc; i++) {
         for (int j = 0; j < h_spike_counts_exc[i]; j++) {
             fprintf(exc_spike_file, "%f ", h_spike_times_exc[i * MAX_SPIKES + j]);
@@ -92,7 +92,7 @@ int save_spike(int* h_spike_counts_exc, float* h_spike_times_exc, int* h_spike_c
         fprintf(exc_spike_file, "\n");
     }
     fclose(exc_spike_file);
-    FILE* inh_spike_file = fopen("inh_spike_times.txt", "w");
+    FILE* inh_spike_file = fopen(ISpikeFile, "w");
     for (int i = 0; i < numInh; i++) {
         for (int j = 0; j < h_spike_counts_inh[i]; j++) {
             fprintf(inh_spike_file, "%f ", h_spike_times_inh[i * MAX_SPIKES + j]);
@@ -104,14 +104,16 @@ int save_spike(int* h_spike_counts_exc, float* h_spike_times_exc, int* h_spike_c
 }
 
 // 主函数，设置和运行模拟
-int main() {
-    int scale = 80;
+int main(int argc, char* argv[]) {
+    const char* ESpikeFile=argv[1];
+    const char* ISpikeFile=argv[2];
+    int scale = 1;
     int numExc = 4096 * scale;
     int numInh = 1024 * scale;
     float connect_prob = 0.02;
     float dt = 0.1;
     int steps = 10000;
-    std::default_random_engine generator;
+    std::default_random_engine generator(static_cast<unsigned int>(std::time(0)));
     //定义神经元群和突触连接
     LIFNeuron *PopExc = new LIFNeuron[numExc];
     LIFNeuron *d_PopExc;
@@ -293,7 +295,7 @@ int main() {
     cudaMemcpy(h_spike_counts_exc, d_spike_counts_exc, numExc * sizeof(int), cudaMemcpyDeviceToHost);
     cudaMemcpy(h_spike_counts_inh, d_spike_counts_inh, numInh * sizeof(int), cudaMemcpyDeviceToHost);
 
-    save_spike(h_spike_counts_exc,h_spike_times_exc,h_spike_counts_inh,h_spike_times_inh,numExc,numInh);
+    save_spike(ESpikeFile,ISpikeFile,h_spike_counts_exc,h_spike_times_exc,h_spike_counts_inh,h_spike_times_inh,numExc,numInh);
     
     // 释放内存
     delete[] PopExc;
