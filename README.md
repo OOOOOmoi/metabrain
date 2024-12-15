@@ -1,3 +1,7 @@
-三个版本的EI-balance网络模拟计算，python版本是最为原始的版本，没有使用任何高性能计算的方法
+三个版本的EI-balance网络模拟计算
+
+python版本是最为原始的版本，没有使用任何高性能计算的方法
+
 C++版本主要使用pthread进行多线程计算
-CUDA版本内容较多，origin后缀的内容主要是C++版本的改为CUDA版本后的最初版本，FixPara后缀的减少了显存的占用，SOA后缀的更换了更适合GPU计算的数据结构，multigpu后缀的是使用多GPU计算的版本
+
+CUDA版本内容较多，origin后缀的内容主要是C++版本的改为CUDA版本后的最初版本，FixPara后缀的减少了显存的占用，SOA后缀的更换了更适合GPU计算的数据结构，multigpu后缀的是使用多GPU计算的版本，thrust前缀采用了CUDA中动态数组的内容，优化了模型生成的过程，可以更加灵活的生成模型
